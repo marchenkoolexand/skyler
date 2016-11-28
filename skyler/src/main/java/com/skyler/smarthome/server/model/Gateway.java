@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "s_gateways")
-public class GateWay implements Serializable {
+public class Gateway implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1189530690619771645L;

@@ -44,7 +44,7 @@
 	</bean>
 
 	<bean id="personDAO" class="com.skyler.smarthome.server.data.UserDaoImpl"></bean>
-	<bean id="gateWayDAO" class="com.skyler.smarthome.server.data.GateWayDaoImpl"></bean>
+	<bean id="gateWayDAO" class="com.skyler.smarthome.server.data.GatewayDaoImpl"></bean>
 	<bean id="sensorDAO" class="com.skyler.smarthome.server.data.SensorDaoImpl"></bean>
 
 </beans>

@@ -2,18 +2,18 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
-import com.skyler.smarthome.server.model.GateWay;
+import com.skyler.smarthome.server.model.Gateway;
 
-public interface GateWayDao {
+public interface GatewayDao {
 
-	List<GateWay> getAllGateWays();
+	List<Gateway> getAllGateways();
 
-	GateWay getGateWayById(int id);
+	Gateway getGatewayById(int id);
 
-	void deleteGateWay(int id);
+	void deleteGateway(int id);
 
-	void updateGateWay(GateWay gateWay);
+	void updateGateway(Gateway gateway);
 
-	void createGateWay(GateWay gateway);
+	void createGateway(Gateway gateway);
 
 }

@@ -7,39 +7,39 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.skyler.smarthome.server.model.GateWay;
+import com.skyler.smarthome.server.model.Gateway;
 
-public class GateWayDaoImpl implements GateWayDao {
+public class GatewayDaoImpl implements GatewayDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<GateWay> getAllGateWays() {
+	public List<Gateway> getAllGateways() {
 
 		Session session = sessionFactory.openSession();
 
 		@SuppressWarnings("unchecked")
-		List<GateWay> gateWayList = session.createQuery("from GateWay").list();
+		List<Gateway> gatewayList = session.createQuery("from Gateway").list();
 
 		session.close();
 
-		return gateWayList;
+		return gatewayList;
 
 	}
 
 	@Override
-	public GateWay getGateWayById(int id) {
+	public Gateway getGatewayById(int id) {
 
 		Session session = sessionFactory.openSession();
 
-		GateWay gateWay = (GateWay) session.get(GateWay.class, id);
+		Gateway gateWay = (Gateway) session.get(Gateway.class, id);
 
 		return gateWay;
 	}
 
 	@Override
-	public void createGateWay(GateWay gateway) {
+	public void createGateway(Gateway gateway) {
 
 		Session session = sessionFactory.openSession();
 
@@ -54,15 +54,15 @@ public class GateWayDaoImpl implements GateWayDao {
 	}
 
 	@Override
-	public void deleteGateWay(int id) {
+	public void deleteGateway(int id) {
 
 		Session session = sessionFactory.openSession();
 
 		Transaction tx = session.beginTransaction();
 
-		GateWay loadedGateWay = (GateWay) session.load(GateWay.class, id);
+		Gateway loadedGateway = (Gateway) session.load(Gateway.class, id);
 
-		session.delete(loadedGateWay);
+		session.delete(loadedGateway);
 
 		tx.commit();
 
@@ -71,13 +71,13 @@ public class GateWayDaoImpl implements GateWayDao {
 	}
 
 	@Override
-	public void updateGateWay(GateWay gateWay) {
+	public void updateGateway(Gateway gateway) {
 
 		Session session = sessionFactory.openSession();
 
 		Transaction tx = session.beginTransaction();
 
-		session.merge(gateWay);
+		session.merge(gateway);
 
 		tx.commit();
 

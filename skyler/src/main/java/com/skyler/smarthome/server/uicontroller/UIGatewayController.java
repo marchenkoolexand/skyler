@@ -8,51 +8,51 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.skyler.smarthome.server.data.GateWayDao;
-import com.skyler.smarthome.server.model.GateWay;
+import com.skyler.smarthome.server.data.GatewayDao;
+import com.skyler.smarthome.server.model.Gateway;
 
 @Controller
 @RequestMapping("/gateway")
-public class UIGateWayController {
+public class UIGatewayController {
 
 	@Autowired
-	GateWayDao gateWayDao;
+	GatewayDao gatewayDao;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	public List<GateWay> getAllGateWays() {
+	public List<Gateway> getAllGateways() {
 
-		List<GateWay> gateWayList = gateWayDao.getAllGateWays();
+		List<Gateway> gatewayList = gatewayDao.getAllGateways();
 
-		return gateWayList;
+		return gatewayList;
 	};
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public GateWay getGateWayById(@PathVariable int id) {
+	public Gateway getGatewayById(@PathVariable int id) {
 
-		GateWay gateWay = gateWayDao.getGateWayById(id);
+		Gateway gateway = gatewayDao.getGatewayById(id);
 
-		return gateWay;
+		return gateway;
 	};
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String deleteGateWayById(@PathVariable int id) {
+	public String deleteGatewayById(@PathVariable int id) {
 
-		gateWayDao.deleteGateWay(id);
+		gatewayDao.deleteGateway(id);
 
 		return "result";
 	};
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void updateGateWay(GateWay gateWay) {
+	public void updateGateway(Gateway gateway) {
 
-		gateWayDao.updateGateWay(gateWay);
+		gatewayDao.updateGateway(gateway);
 
 	};
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void createGateWay(GateWay gateWay) {
+	public void createGateWay(Gateway gateWay) {
 
-		gateWayDao.createGateWay(gateWay);
+		gatewayDao.createGateway(gateWay);
 
 	};
 }
