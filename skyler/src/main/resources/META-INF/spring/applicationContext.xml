@@ -30,7 +30,7 @@
 			<list>
 				<value>com.skyler.smarthome.server.model.User</value>
 				<value>com.skyler.smarthome.server.model.Sensor</value>
-				<value>com.skyler.smarthome.server.model.GateWay</value>
+				<value>com.skyler.smarthome.server.model.Gateway</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
