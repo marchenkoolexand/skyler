@@ -34,14 +34,6 @@ public class UIGatewayController {
 		return gateway;
 	};
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public String deleteGatewayById(@PathVariable int id) {
-
-		gatewayDao.deleteGateway(id);
-
-		return "result";
-	};
-
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void updateGateway(Gateway gateway) {
 
@@ -49,10 +41,4 @@ public class UIGatewayController {
 
 	};
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public void createGateWay(Gateway gateWay) {
-
-		gatewayDao.createGateway(gateWay);
-
-	};
 }

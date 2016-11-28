@@ -22,8 +22,7 @@ public class User implements Serializable {
 	private int id;
 	@Column(name = "s_first_name")
 	private String firstName;
-	@Column(name = "s_middle_name")
-	private String middleName;
+
 	@Column(name = "s_last_name")
 	private String lastName;
 
@@ -49,11 +48,9 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public User(String firstName, String middleName, String lastName, String email, String recoveryEmail,
-			String password, String phoneNumber) {
-		super();
+	public User(String firstName, String lastName, String email, String recoveryEmail, String password,
+			String phoneNumber) {
 		this.firstName = firstName;
-		this.middleName = middleName;
 		this.lastName = lastName;
 		this.email = email;
 		this.recoveryEmail = recoveryEmail;
@@ -75,14 +72,6 @@ public class User implements Serializable {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
 	}
 
 	public String getLastName() {
@@ -127,9 +116,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-				+ ", email=" + email + ", recoveryEmail=" + recoveryEmail + ", password=" + password + ", phoneNumber="
-				+ phoneNumber + "]";
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", recoveryEmail=" + recoveryEmail + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";
 	}
 
 	@Override
@@ -140,7 +128,6 @@ public class User implements Serializable {
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((middleName == null) ? 0 : middleName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		result = prime * result + ((recoveryEmail == null) ? 0 : recoveryEmail.hashCode());
@@ -172,11 +159,6 @@ public class User implements Serializable {
 			if (other.lastName != null)
 				return false;
 		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (middleName == null) {
-			if (other.middleName != null)
-				return false;
-		} else if (!middleName.equals(other.middleName))
 			return false;
 		if (password == null) {
 			if (other.password != null)

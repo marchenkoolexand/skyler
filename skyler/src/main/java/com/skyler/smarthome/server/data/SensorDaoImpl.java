@@ -1,5 +1,6 @@
 package com.skyler.smarthome.server.data;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skyler.smarthome.server.enums.SensorStatus;
+import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Sensor;
 
 public class SensorDaoImpl implements SensorDao {
@@ -52,6 +54,37 @@ public class SensorDaoImpl implements SensorDao {
 		List<Sensor> list = query.list();
 
 		return list;
+	}
+
+	@Override
+	public void addSensorToGateway(int gatewayId, Sensor sensor) {
+
+		Session session = sessionFactory.openSession();
+
+		Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+
+		gateway.getSensorList().add(sensor);
+
+		session.save(gateway);
+
+	}
+
+	@Override
+	public void addSensorListToGateway(int gatewayId, List<Sensor> sensorList) {
+
+		Session session = sessionFactory.openSession();
+
+		Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+
+		Iterator<Sensor> iterator = sensorList.iterator();
+
+		while (iterator.hasNext()) {
+
+			gateway.getSensorList().add(iterator.next());
+		}
+
+		session.save(gateway);
+
 	}
 
 }
