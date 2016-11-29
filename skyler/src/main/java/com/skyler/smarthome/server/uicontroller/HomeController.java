@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,8 @@ import com.skyler.smarthome.server.model.User;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+	
+	final static Logger logger = Logger.getLogger(HomeController.class);
 
 	@Autowired
 	UserDao userDao;
@@ -30,6 +33,10 @@ public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String home() {
+		
+		logger.error("Error");
+		logger.debug("debug");
+		logger.fatal("fatal");
 
 		userDao.createNewUser(new User("Sasha", "Marchenko", "Email", "recovery@email", "password", "phoneNumber"));
 

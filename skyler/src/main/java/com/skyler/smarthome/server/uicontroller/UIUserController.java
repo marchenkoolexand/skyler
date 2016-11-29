@@ -2,6 +2,7 @@ package com.skyler.smarthome.server.uicontroller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import com.skyler.smarthome.server.model.User;
 @Controller
 @RequestMapping("/user")
 public class UIUserController {
+
+	final static Logger logger = Logger.getLogger(UIUserController.class);
 
 	@Autowired
 	UserDao userDao;
@@ -45,14 +48,14 @@ public class UIUserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void updateUser(User user) {
-		
+
 		userDao.updateUser(user);
 
 	};
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	public void deleteUserById(@PathVariable int id) {
-		
+
 		userDao.deleteUserById(id);
 
 	};

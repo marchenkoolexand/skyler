@@ -2,6 +2,7 @@ package com.skyler.smarthome.server.uicontroller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,8 @@ import com.skyler.smarthome.server.model.Gateway;
 @Controller
 @RequestMapping("/gateway")
 public class UIGatewayController {
+
+	final static Logger logger = Logger.getLogger(UIGatewayController.class);
 
 	@Autowired
 	GatewayDao gatewayDao;

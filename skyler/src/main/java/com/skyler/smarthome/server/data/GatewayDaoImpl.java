@@ -2,6 +2,7 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.skyler.smarthome.server.model.Gateway;
 
 public class GatewayDaoImpl implements GatewayDao {
+
+	final static Logger logger = Logger.getLogger(GatewayDaoImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;

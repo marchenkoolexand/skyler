@@ -3,6 +3,7 @@ package com.skyler.smarthome.server.data;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,8 @@ import com.skyler.smarthome.server.model.Sensor;
 
 public class SensorDaoImpl implements SensorDao {
 
+	final static Logger logger = Logger.getLogger(SensorDaoImpl.class);
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 

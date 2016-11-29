@@ -2,6 +2,7 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,6 +12,8 @@ import com.skyler.smarthome.server.model.User;
 
 public class UserDaoImpl implements UserDao {
 
+	final static Logger logger = Logger.getLogger(UserDaoImpl.class);
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
