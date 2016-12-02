@@ -19,10 +19,8 @@ import com.skyler.smarthome.server.model.Gateway;
 public class GatewayInternalGetController {
 
 	final static Logger logger = Logger.getLogger(GatewayInternalGetController.class);
-
 	@Autowired
 	GatewayDao gatewayDAO;
-	
 	@Autowired
 	SensorDao sensorDao;
 
