@@ -8,11 +8,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.skyler.smarthome.server.enums.SensorStatus;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Sensor;
 
+@Component
 public class SensorDaoImpl implements SensorDao {
 
 	final static Logger logger = Logger.getLogger(SensorDaoImpl.class);

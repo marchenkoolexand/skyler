@@ -7,13 +7,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.skyler.smarthome.server.model.User;
 
+@Component
 public class UserDaoImpl implements UserDao {
 
 	final static Logger logger = Logger.getLogger(UserDaoImpl.class);
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -62,7 +64,7 @@ public class UserDaoImpl implements UserDao {
 		Transaction tx = session.beginTransaction();
 
 		session.merge(user);
-	
+
 		tx.commit();
 
 		session.close();
