@@ -1,8 +1,10 @@
 package com.skyler.smarthome.server.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.skyler.smarthome.server.model.Gateway;
+import com.skyler.smarthome.server.service.GatewayService;
 
 @Component
 public class GatewayDaoImpl implements GatewayDao {
@@ -19,47 +22,100 @@ public class GatewayDaoImpl implements GatewayDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Gateway> getAllGateways() {
 		Session session = sessionFactory.openSession();
-		@SuppressWarnings("unchecked")
-		List<Gateway> gatewayList = session.createQuery("from Gateway").list();
-		session.close();
+		List<Gateway> gatewayList = new ArrayList<Gateway>();
+		try {
+			gatewayList = session.createQuery("from Gateway").list();
+			return gatewayList;
+		} catch (HibernateException e) {
+
+		} finally {
+			session.close();
+		}
 		return gatewayList;
 	}
 
 	@Override
 	public Gateway getGatewayById(int id) {
 		Session session = sessionFactory.openSession();
-		Gateway gateWay = (Gateway) session.get(Gateway.class, id);
-		return gateWay;
+		try {
+			Gateway gateWay = (Gateway) session.get(Gateway.class, id);
+			return gateWay;
+		} catch (HibernateException e) {
+			
+		}
+		return null;
 	}
 
 	@Override
-	public void createGateway(Gateway gateway) {
+	public boolean createGateway(Gateway gateway) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.persist(gateway);
-		tx.commit();
-		session.close();
+		try {
+			session.persist(gateway);
+		} catch (HibernateException e) {
+			tx.rollback();
+			return false;
+		} finally {
+			tx.commit();
+			session.close();
+		}
+		return true;
+
 	}
 
 	@Override
-	public void deleteGateway(int id) {
+	public boolean deleteGateway(int id) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		Gateway loadedGateway = (Gateway) session.load(Gateway.class, id);
-		session.delete(loadedGateway);
-		tx.commit();
-		session.close();
+		try {
+			Gateway loadedGateway = (Gateway) session.load(Gateway.class, id);
+			session.delete(loadedGateway);
+		} catch (HibernateException e) {
+			tx.rollback();
+			return false;
+		} finally {
+			tx.commit();
+			session.close();
+		}
+		return true;
 	}
 
 	@Override
-	public void updateGateway(Gateway gateway) {
+	public boolean updateGatewayByField(int gatewayId, String gatewayField, String newParam) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.merge(gateway);
-		tx.commit();
-		session.close();
+		try {
+			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+			gateway = GatewayService.updateGatewayByField(gateway, gatewayField, newParam);
+			session.merge(gateway);
+		} catch (HibernateException e) {
+			tx.rollback();
+			return false;
+		} finally {
+			tx.commit();
+			session.close();
+		}
+		return false;
+
+	}
+
+	@Override
+	public boolean updateGateway(Gateway gateway) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.merge(gateway);
+		} catch (HibernateException e) {
+			tx.rollback();
+			return false;
+		} finally {
+			tx.commit();
+			session.close();
+		}
+		return false;
 	}
 }

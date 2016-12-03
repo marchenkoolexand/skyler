@@ -31,11 +31,15 @@ public class UISensorController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Sensor getSensorById(@PathVariable int id) {
-		Sensor sensor = sensorDao.getSensorById(id);
-		return sensor;
+		if (id > 0) {
+			Sensor sensor = sensorDao.getSensorById(id);
+			return sensor;
+		} else {
+			return null;
+		}
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/newsensors", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Sensor> newSensors() {
 		List<Sensor> newSensorsList = sensorDao.getSensorByStatus(SensorStatus.NEW);
 		return newSensorsList;
@@ -55,7 +59,7 @@ public class UISensorController {
 
 	@RequestMapping(value = "/working", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Sensor> workingSensors() {
-		List<Sensor> deletedSensorsList = sensorDao.getSensorByStatus(SensorStatus.DELETED);
+		List<Sensor> deletedSensorsList = sensorDao.getSensorByStatus(SensorStatus.WORKING);
 		return deletedSensorsList;
 	}
 }

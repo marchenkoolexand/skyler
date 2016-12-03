@@ -13,8 +13,9 @@ public interface SensorDao {
 
 	public List<Sensor> getSensorByStatus(SensorStatus status);
 
-	public void addSensorToGateway(int gateway, Sensor sensor);
+	public boolean addSensorToGateway(int gateway, Sensor sensor);
 
-	public void addSensorListToGateway(int gateway, List<Sensor> sensorList);
+	public boolean addSensorListToGateway(int gateway, List<Sensor> sensorList);
 
+	public boolean setSensorStatus(int sensorId,SensorStatus status);
 }

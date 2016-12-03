@@ -10,10 +10,12 @@ public interface GatewayDao {
 
 	Gateway getGatewayById(int id);
 
-	void deleteGateway(int id);
+	boolean deleteGateway(int id);
 
-	void updateGateway(Gateway gateway);
+	boolean updateGatewayByField(int gatewayId, String gatewayField, String newParam);
+	
+	boolean updateGateway(Gateway gateway);
 
-	void createGateway(Gateway gateway);
+	boolean createGateway(Gateway gateway);
 
 }

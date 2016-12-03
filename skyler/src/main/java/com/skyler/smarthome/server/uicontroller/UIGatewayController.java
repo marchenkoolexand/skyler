@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skyler.smarthome.server.data.GatewayDao;
@@ -30,13 +31,19 @@ public class UIGatewayController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Gateway getGatewayById(@PathVariable int id) {
-		Gateway gateway = gatewayDao.getGatewayById(id);
-		return gateway;
+		if (id > 0) {
+			Gateway gateway = gatewayDao.getGatewayById(id);
+			return gateway;
+		} else {
+			return null;
+		}
 	};
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void updateGateway(Gateway gateway) {
-		gatewayDao.updateGateway(gateway);
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+	public void updateGateway(@PathVariable int id, @RequestParam String gatewayField, @RequestParam String newParam) {
+		if (id > 0 && gatewayField != null && newParam != null) {
+			boolean result = gatewayDao.updateGatewayByField(id, gatewayField, newParam);
+		}
 	};
 
 }

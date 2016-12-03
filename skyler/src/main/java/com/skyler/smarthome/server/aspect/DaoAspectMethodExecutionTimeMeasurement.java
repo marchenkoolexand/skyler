@@ -11,7 +11,7 @@ import com.skyler.smarthome.server.data.GatewayDao;
 
 @Aspect
 @Component
-public class DaoAspectTimeMeasurement {
+public class DaoAspectMethodExecutionTimeMeasurement {
 	final static Logger logger = Logger.getLogger(GatewayDao.class);
 
 	long startTime = 0L;
@@ -26,7 +26,7 @@ public class DaoAspectTimeMeasurement {
 	public void timeMeasurementAfter(JoinPoint joinPoint) {
 		elapsedTime = System.currentTimeMillis() - startTime;
 		if (logger.isDebugEnabled()) {
-			logger.debug("Execute: " + joinPoint.getSignature() + ", Time elapsed:" + elapsedTime + "Millis");
+			logger.debug("Execute: " + joinPoint.getSignature() + ", Time elapsed:" + elapsedTime + " Millis");
 		}
 	}
 }
