@@ -37,27 +37,27 @@ public class UIUserController {
 		}
 	};
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody User getUserById(@PathVariable int id) {
-		if (id > 0) {
-			User user = userDao.getUserById(id);
+	@RequestMapping(value = "/{userid}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody User getUserById(@PathVariable int userid) {
+		if (userid > 0) {
+			User user = userDao.getUserById(userid);
 			return user;
 		} else {
 			return null;
 		}
 	};
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public void updateUser(@PathVariable int id, @RequestParam String userField, @RequestParam String newParam) {
-		if (id > 0 && userField != null && newParam != null) {
-			boolean result = userDao.updateUser(id, userField, newParam);
+	@RequestMapping(value = "/update/{userid}", method = RequestMethod.POST)
+	public void updateUser(@PathVariable int userid, @RequestParam String userField, @RequestParam String newParam) {
+		if (userid > 0 && userField != null && newParam != null) {
+			boolean result = userDao.updateUser(userid, userField, newParam);
 		}
 	};
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public void deleteUserById(@PathVariable int id) {
-		if (id > 0) {
-			boolean result = userDao.deleteUserById(id);
+	@RequestMapping(value = "/delete/{userid}", method = RequestMethod.POST)
+	public void deleteUserById(@PathVariable int userid) {
+		if (userid > 0) {
+			boolean result = userDao.deleteUserById(userid);
 		}
 	};
 

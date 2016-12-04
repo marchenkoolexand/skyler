@@ -29,7 +29,7 @@ public class GatewayInternalGetController {
 	@Autowired
 	SensorDao sensorDao;
 
-	@RequestMapping(value = "/registergateway", method = RequestMethod.GET)
+	@RequestMapping(value = "/registergateway", method = RequestMethod.POST)
 	public void registerGateway(@RequestBody Gateway gateway) {
 		boolean result = gatewayDAO.createGateway(gateway);
 	}
@@ -41,19 +41,19 @@ public class GatewayInternalGetController {
 		boolean result = sensorDao.addSensorToGateway(gatewayId, sensor);
 	}
 
-	@RequestMapping(value = "/gateway/delete/{id}", method = RequestMethod.POST)
-	public void deleteGateway(@PathVariable int id) {
-		boolean result = gatewayDAO.deleteGateway(id);
+	@RequestMapping(value = "/gateway/delete/{gatewayid}", method = RequestMethod.POST)
+	public void deleteGateway(@PathVariable int gatewayid) {
+		boolean result = gatewayDAO.deleteGateway(gatewayid);
 	}
 
-	@RequestMapping(value = "/gateway/update/{id}", method = RequestMethod.POST)
-	public void updateGateway(@PathVariable int id, @RequestParam String gatewayField, @RequestParam String newParam) {
-		boolean result = gatewayDAO.updateGatewayByField(id, gatewayField, newParam);
+	@RequestMapping(value = "/gateway/update/{gatewayid}", method = RequestMethod.POST)
+	public void updateGateway(@PathVariable int gatewayid, @RequestParam String gatewayField, @RequestParam String newParam) {
+		boolean result = gatewayDAO.updateGatewayByField(gatewayid, gatewayField, newParam);
 	}
 
-	@RequestMapping(value = "/gateway/{id}", method = RequestMethod.GET)
-	public @ResponseBody Gateway getGatewayById(@PathVariable int id) {
-		Gateway gateway = gatewayDAO.getGatewayById(id);
+	@RequestMapping(value = "/gateway/{gatewayid}", method = RequestMethod.GET)
+	public @ResponseBody Gateway getGatewayById(@PathVariable int gatewayid) {
+		Gateway gateway = gatewayDAO.getGatewayById(gatewayid);
 		return gateway;
 	}
 

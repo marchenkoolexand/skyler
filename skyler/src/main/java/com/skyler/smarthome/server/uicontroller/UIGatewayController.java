@@ -29,20 +29,20 @@ public class UIGatewayController {
 		return gatewayList;
 	};
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Gateway getGatewayById(@PathVariable int id) {
-		if (id > 0) {
-			Gateway gateway = gatewayDao.getGatewayById(id);
+	@RequestMapping(value = "/{gatewayid}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Gateway getGatewayById(@PathVariable int gatewayid) {
+		if (gatewayid > 0) {
+			Gateway gateway = gatewayDao.getGatewayById(gatewayid);
 			return gateway;
 		} else {
 			return null;
 		}
 	};
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public void updateGateway(@PathVariable int id, @RequestParam String gatewayField, @RequestParam String newParam) {
-		if (id > 0 && gatewayField != null && newParam != null) {
-			boolean result = gatewayDao.updateGatewayByField(id, gatewayField, newParam);
+	@RequestMapping(value = "/update/{gatewayid}", method = RequestMethod.POST)
+	public void updateGateway(@PathVariable int gatewayid, @RequestParam String gatewayField, @RequestParam String newParam) {
+		if (gatewayid > 0 && gatewayField != null && newParam != null) {
+			boolean result = gatewayDao.updateGatewayByField(gatewayid, gatewayField, newParam);
 		}
 	};
 

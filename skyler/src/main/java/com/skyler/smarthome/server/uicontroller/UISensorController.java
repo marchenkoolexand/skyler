@@ -29,10 +29,10 @@ public class UISensorController {
 		return allSensorsList;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Sensor getSensorById(@PathVariable int id) {
-		if (id > 0) {
-			Sensor sensor = sensorDao.getSensorById(id);
+	@RequestMapping(value = "/{sensorid}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Sensor getSensorById(@PathVariable int sensorid) {
+		if (sensorid > 0) {
+			Sensor sensor = sensorDao.getSensorById(sensorid);
 			return sensor;
 		} else {
 			return null;
