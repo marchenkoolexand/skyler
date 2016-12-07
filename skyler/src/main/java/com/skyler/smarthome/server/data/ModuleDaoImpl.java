@@ -12,33 +12,33 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.skyler.smarthome.server.enums.SensorStatus;
+import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.model.Sensor;
-import com.skyler.smarthome.server.service.SensorService;
+import com.skyler.smarthome.server.model.Module;
+import com.skyler.smarthome.server.service.ModuleService;
 
 @Component
-public class SensorDaoImpl implements SensorDao {
+public class ModuleDaoImpl implements ModuleDao {
 
-	final static Logger logger = Logger.getLogger(SensorDaoImpl.class);
+	final static Logger logger = Logger.getLogger(ModuleDaoImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Sensor getSensorById(int id) {
+	public Module getModuleById(int id) {
 		Session session = sessionFactory.openSession();
-		Sensor sensor = (Sensor) session.get(Sensor.class, id);
-		return sensor;
+		Module module = (Module) session.get(Module.class, id);
+		return module;
 	}
 
 	@Override
-	public List<Sensor> getAllSensors() {
+	public List<Module> getAllModules() {
 		Session session = sessionFactory.openSession();
 		try {
 			@SuppressWarnings("unchecked")
-			List<Sensor> sensorList = session.createQuery("from Sensor").list();
-			return sensorList;
+			List<Module> moduleList = session.createQuery("from Module").list();
+			return moduleList;
 		} catch (HibernateException e) {
 
 		} finally {
@@ -48,13 +48,13 @@ public class SensorDaoImpl implements SensorDao {
 	}
 
 	@Override
-	public List<Sensor> getSensorByStatus(SensorStatus status) {
+	public List<Module> getModuleByStatus(ModuleStatus status) {
 
 		Session session = sessionFactory.openSession();
 		try {
-			Query query = session.createQuery("from Sensor where s_sensore_stat = :status ");
-			query = SensorService.setSensorStatusForQuery(query, status);
-			List<Sensor> list = query.list();
+			Query query = session.createQuery("from Module where s_module_stat = :status ");
+			query = ModuleService.setModuleStatusForQuery(query, status);
+			List<Module> list = query.list();
 			return list;
 		} catch (Exception e) {
 
@@ -63,12 +63,12 @@ public class SensorDaoImpl implements SensorDao {
 	}
 
 	@Override
-	public boolean addSensorToGateway(int gatewayId, Sensor sensor) {
+	public boolean addModuleToGateway(int gatewayId, Module module) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
-			gateway.getSensorList().add(sensor);
+			gateway.getModuleList().add(module);
 			session.save(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
@@ -81,13 +81,13 @@ public class SensorDaoImpl implements SensorDao {
 	}
 
 	@Override
-	public boolean addSensorListToGateway(int gatewayId, List<Sensor> sensorList) {
+	public boolean addModuleListToGateway(int gatewayId, List<Module> moduleList) {
 		Session session = sessionFactory.openSession();
 		try {
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
-			Iterator<Sensor> iterator = sensorList.iterator();
+			Iterator<Module> iterator = moduleList.iterator();
 			while (iterator.hasNext()) {
-				gateway.getSensorList().add(iterator.next());
+				gateway.getModuleList().add(iterator.next());
 				session.save(gateway);
 			}
 		} catch (HibernateException e) {
@@ -100,12 +100,12 @@ public class SensorDaoImpl implements SensorDao {
 	}
 
 	@Override
-	public boolean setSensorStatus(int sensorId, SensorStatus status) {
+	public boolean setModuleStatus(int moduleId, ModuleStatus status) {
 		Session session = sessionFactory.openSession();
 		try {
-			Sensor sensor = (Sensor) session.get(Sensor.class, sensorId);
-			sensor.setSensorStatus(status);
-			session.merge(sensor);
+			Module module = (Module) session.get(Module.class, status);
+			module.setModuleStatus(status);
+			session.merge(module);
 			return true;
 		} catch (Exception e) {
 

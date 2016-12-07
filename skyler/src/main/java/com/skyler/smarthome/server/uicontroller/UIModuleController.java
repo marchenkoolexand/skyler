@@ -10,56 +10,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.skyler.smarthome.server.data.SensorDao;
-import com.skyler.smarthome.server.enums.SensorStatus;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.data.ModuleDao;
+import com.skyler.smarthome.server.enums.ModuleStatus;
+import com.skyler.smarthome.server.model.Module;
 
 @Controller
-@RequestMapping("/sensor")
-public class UISensorController {
+@RequestMapping("/module")
+public class UIModuleController {
 
-	final static Logger logger = Logger.getLogger(UISensorController.class);
+	final static Logger logger = Logger.getLogger(UIModuleController.class);
 
 	@Autowired
-	private SensorDao sensorDao;
+	private ModuleDao moduleDao;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Sensor> allSensors() {
-		List<Sensor> allSensorsList = sensorDao.getAllSensors();
-		return allSensorsList;
+	public @ResponseBody List<Module> allModules() {
+		List<Module> allModulesList = moduleDao.getAllModules();
+		return allModulesList;
 	}
 
-	@RequestMapping(value = "/{sensorid}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Sensor getSensorById(@PathVariable int sensorid) {
-		if (sensorid > 0) {
-			Sensor sensor = sensorDao.getSensorById(sensorid);
-			return sensor;
+	@RequestMapping(value = "/{moduleid}", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Module getModuleById(@PathVariable int moduleid) {
+		if (moduleid > 0) {
+			Module module = moduleDao.getModuleById(moduleid);
+			return module;
 		} else {
 			return null;
 		}
 	}
 
-	@RequestMapping(value = "/newsensors", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Sensor> newSensors() {
-		List<Sensor> newSensorsList = sensorDao.getSensorByStatus(SensorStatus.NEW);
-		return newSensorsList;
+	@RequestMapping(value = "/newmoduls", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Module> newModules() {
+		List<Module> newModulesList = moduleDao.getModuleByStatus(ModuleStatus.NEW);
+		return newModulesList;
 	}
 
 	@RequestMapping(value = "/missing", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Sensor> missingSensors() {
-		List<Sensor> missingSensorsList = sensorDao.getSensorByStatus(SensorStatus.MISSING);
-		return missingSensorsList;
+	public @ResponseBody List<Module> missingModules() {
+		List<Module> missingModulsList = moduleDao.getModuleByStatus(ModuleStatus.MISSING);
+		return missingModulsList;
 	}
 
 	@RequestMapping(value = "/deleted", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Sensor> deletedSensors() {
-		List<Sensor> deletedSensorsList = sensorDao.getSensorByStatus(SensorStatus.DELETED);
-		return deletedSensorsList;
+	public @ResponseBody List<Module> deletedModules() {
+		List<Module> deletedModulesList = moduleDao.getModuleByStatus(ModuleStatus.DELETED);
+		return deletedModulesList;
 	}
 
 	@RequestMapping(value = "/working", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Sensor> workingSensors() {
-		List<Sensor> deletedSensorsList = sensorDao.getSensorByStatus(SensorStatus.WORKING);
-		return deletedSensorsList;
+	public @ResponseBody List<Module> workingModules() {
+		List<Module> deletedModulesList = moduleDao.getModuleByStatus(ModuleStatus.WORKING);
+		return deletedModulesList;
 	}
 }

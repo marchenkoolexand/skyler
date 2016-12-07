@@ -31,16 +31,16 @@ public class Gateway implements Serializable {
 	@Column(name = "s_gateway_url")
 	private String gwUrl;
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@JoinTable(name = "s_joined_gateway_sensors", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_sensor_fk"))
-	private List<Sensor> sensorList;
+	@JoinTable(name = "s_joined_gateway_modules", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_module_fk"))
+	private List<Module> moduleList;
 
 	public Gateway() {
 	}
 
-	public Gateway(String gwName, String gwUrl, List<Sensor> sensorList) {
+	public Gateway(String gwName, String gwUrl, List<Module> moduleList) {
 		this.gwName = gwName;
 		this.gwUrl = gwUrl;
-		this.sensorList = sensorList;
+		this.moduleList = moduleList;
 	}
 
 	public String getGwName() {
@@ -59,12 +59,12 @@ public class Gateway implements Serializable {
 		this.gwUrl = gwUrl;
 	}
 
-	public List<Sensor> getSensorList() {
-		return sensorList;
+	public List<Module> getModuleList() {
+		return moduleList;
 	}
 
-	public void setSensorList(List<Sensor> sensorList) {
-		this.sensorList = sensorList;
+	public void setModuleList(List<Module> moduleList) {
+		this.moduleList = moduleList;
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class Gateway implements Serializable {
 		result = prime * result + ((gwName == null) ? 0 : gwName.hashCode());
 		result = prime * result + ((gwUrl == null) ? 0 : gwUrl.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((sensorList == null) ? 0 : sensorList.hashCode());
+		result = prime * result + ((moduleList == null) ? 0 : moduleList.hashCode());
 		return result;
 	}
 
@@ -99,17 +99,17 @@ public class Gateway implements Serializable {
 			return false;
 		if (id != other.id)
 			return false;
-		if (sensorList == null) {
-			if (other.sensorList != null)
+		if (moduleList == null) {
+			if (other.moduleList != null)
 				return false;
-		} else if (!sensorList.equals(other.sensorList))
+		} else if (!moduleList.equals(other.moduleList))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Gateway [id=" + id + ", gwName=" + gwName + ", gwUrl=" + gwUrl + ", sensorList=" + sensorList + "]";
+		return "Gateway [id=" + id + ", gwName=" + gwName + ", gwUrl=" + gwUrl + ", modulesList=" + moduleList + "]";
 	}
 
 }

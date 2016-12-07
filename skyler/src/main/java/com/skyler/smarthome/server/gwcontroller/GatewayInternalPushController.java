@@ -7,10 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.skyler.smarthome.server.data.GatewayDao;
-import com.skyler.smarthome.server.enums.SensorAction;
-import com.skyler.smarthome.server.enums.SensorStatus;
+import com.skyler.smarthome.server.enums.ModuleAction;
+import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.model.Module;
 
 public class GatewayInternalPushController {
 	
@@ -24,17 +24,17 @@ public class GatewayInternalPushController {
 		return null;
 	}
 	
-	public List<Sensor> pingForSensors(int gatewayId, URL url){
+	public List<Module> pingForModules(int gatewayId, URL url){
 		
 		return null;
 	}
 	
-	public boolean postActionToSensor(int gatewayId,int sensorId, URL url,SensorAction sensorAction){
+	public boolean postActionToModule(int gatewayId,int moduleId, URL url,ModuleAction moduleAction){
 		
 		return false;
 	}
 	
-	public SensorStatus pingForSensorStatus(int gatewayId,int sensorId, URL url){
+	public ModuleStatus pingForModuleStatus(int gatewayId,int moduleId, URL url){
 		
 		return null;
 	}

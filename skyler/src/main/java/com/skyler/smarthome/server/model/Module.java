@@ -19,13 +19,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import com.skyler.smarthome.server.enums.SensorAction;
-import com.skyler.smarthome.server.enums.SensorStatus;
-import com.skyler.smarthome.server.enums.SensorType;
+import com.skyler.smarthome.server.enums.ModuleAction;
+import com.skyler.smarthome.server.enums.ModuleStatus;
+import com.skyler.smarthome.server.enums.ModuleType;
 
 @Entity
-@Table(name = "s_sensors")
-public class Sensor implements Serializable {
+@Table(name = "s_modules")
+public class Module implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1943078891998676989L;
@@ -38,37 +38,37 @@ public class Sensor implements Serializable {
 	@Column(name = "s_device_id")
 	private int deviceId;
 
-	@Column(name = "s_sensore_stat")
+	@Column(name = "s_module_stat")
 	@Enumerated(EnumType.STRING)
-	private SensorStatus sensorStatus;
+	private ModuleStatus moduleStatus;
 
-	@Column(name = "s_sensore_type")
+	@Column(name = "s_module_type")
 	@Enumerated(EnumType.STRING)
-	private SensorType sensorType;
+	private ModuleType moduleType;
 
-	@ElementCollection(targetClass = SensorAction.class, fetch = FetchType.EAGER)
+	@ElementCollection(targetClass = ModuleAction.class, fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
-	@JoinTable(name = "s_sensor_suported_actions", joinColumns = @JoinColumn(name = "s_sensor_id"))
+	@JoinTable(name = "s_module_suported_actions", joinColumns = @JoinColumn(name = "s_module_id"))
 	@Column(name = "s_suported_action")
-	private Set<SensorAction> suportedActions;
+	private Set<ModuleAction> suportedActions;
 
 	@Column(name = "s_timestamp")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timeStamp;
 
-	public Sensor() {
+	public Module() {
 	}
 
-	public Sensor(int deviceId, SensorStatus sensorStatus, SensorType sensorType) {
+	public Module(int deviceId, ModuleStatus moduleStatus, ModuleType moduleType) {
 		this.deviceId = deviceId;
-		this.sensorStatus = sensorStatus;
-		this.sensorType = sensorType;
+		this.moduleStatus = moduleStatus;
+		this.moduleType = moduleType;
 	}
 	
-	public Sensor(int deviceId, SensorStatus sensorStatus, SensorType sensorType, Set<SensorAction> suportedActions) {
+	public Module(int deviceId, ModuleStatus moduleStatus, ModuleType moduleType, Set<ModuleAction> suportedActions) {
 		this.deviceId = deviceId;
-		this.sensorStatus = sensorStatus;
-		this.sensorType = sensorType;
+		this.moduleStatus = moduleStatus;
+		this.moduleType = moduleType;
 		this.suportedActions = suportedActions;
 	}
 
@@ -88,28 +88,28 @@ public class Sensor implements Serializable {
 		this.deviceId = deviceId;
 	}
 
-	public SensorStatus getSensorStatus() {
-		return sensorStatus;
+	public ModuleStatus getModuleStatus() {
+		return moduleStatus;
 	}
 
-	public void setSensorStatus(SensorStatus sensorStatus) {
-		this.sensorStatus = sensorStatus;
+	public void setModuleStatus(ModuleStatus moduleStatus) {
+		this.moduleStatus = moduleStatus;
 	}
 
-	public Set<SensorAction> getSuportedActions() {
+	public Set<ModuleAction> getSuportedActions() {
 		return suportedActions;
 	}
 
-	public void setSuportedActions(Set<SensorAction> suportedActions) {
+	public void setSuportedActions(Set<ModuleAction> suportedActions) {
 		this.suportedActions = suportedActions;
 	}
 
-	public SensorType getSensorType() {
-		return sensorType;
+	public ModuleType getModuleType() {
+		return moduleType;
 	}
 
-	public void setSensorType(SensorType sensorType) {
-		this.sensorType = sensorType;
+	public void setModuleType(ModuleType moduleType) {
+		this.moduleType = moduleType;
 	}
 
 	public Date getTimeStamp() {
@@ -122,8 +122,8 @@ public class Sensor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Sensor [id=" + id + ", deviceId=" + deviceId + ", sensorStatus=" + sensorStatus + ", sensorType="
-				+ sensorType + ", suportedActions=" + suportedActions + ", timeStamp=" + timeStamp + "]";
+		return "Module [id=" + id + ", deviceId=" + deviceId + ", moduleStatus=" + moduleType + ", moduleType="
+				+ moduleType + ", suportedActions=" + suportedActions + ", timeStamp=" + timeStamp + "]";
 	}
 
 	@Override
@@ -132,8 +132,8 @@ public class Sensor implements Serializable {
 		int result = 1;
 		result = prime * result + deviceId;
 		result = prime * result + id;
-		result = prime * result + ((sensorStatus == null) ? 0 : sensorStatus.hashCode());
-		result = prime * result + ((sensorType == null) ? 0 : sensorType.hashCode());
+		result = prime * result + ((moduleStatus == null) ? 0 : moduleStatus.hashCode());
+		result = prime * result + ((moduleType == null) ? 0 : moduleType.hashCode());
 		result = prime * result + ((suportedActions == null) ? 0 : suportedActions.hashCode());
 		result = prime * result + ((timeStamp == null) ? 0 : timeStamp.hashCode());
 		return result;
@@ -147,14 +147,14 @@ public class Sensor implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Sensor other = (Sensor) obj;
+		Module other = (Module) obj;
 		if (deviceId != other.deviceId)
 			return false;
 		if (id != other.id)
 			return false;
-		if (sensorStatus != other.sensorStatus)
+		if (moduleStatus != other.moduleStatus)
 			return false;
-		if (sensorType != other.sensorType)
+		if (moduleType != other.moduleType)
 			return false;
 		if (suportedActions == null) {
 			if (other.suportedActions != null)

@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.skyler.smarthome.server.data.GatewayDao;
-import com.skyler.smarthome.server.data.SensorDao;
+import com.skyler.smarthome.server.data.ModuleDao;
 import com.skyler.smarthome.server.data.UserDao;
-import com.skyler.smarthome.server.enums.SensorAction;
-import com.skyler.smarthome.server.enums.SensorStatus;
-import com.skyler.smarthome.server.enums.SensorType;
+import com.skyler.smarthome.server.enums.ModuleAction;
+import com.skyler.smarthome.server.enums.ModuleStatus;
+import com.skyler.smarthome.server.enums.ModuleType;
 import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.model.Module;
 import com.skyler.smarthome.server.model.User;
 
 @Controller
@@ -28,7 +28,7 @@ public class HomeController {
 	final static Logger logger = Logger.getLogger(HomeController.class);
 
 	@Autowired
-	SensorDao sensorDAO;
+	ModuleDao moduleDAO;
 	@Autowired
 	GatewayDao gatewayDAO;
 	@Autowired
@@ -36,39 +36,36 @@ public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String home() {
+		
+		addTestData();
 		return "index";
 	};
 
-	@RequestMapping(method = RequestMethod.POST)
-	public String homeTest() {
-		return "index";
-	};
-	
 	
 	
 	
 	
 	void addTestData(){
 		
-		List<Sensor> sensorList = new ArrayList<Sensor>();
-		Set<SensorAction> suported = new TreeSet<SensorAction>();
-		suported.add(SensorAction.ACTION1);
-		suported.add(SensorAction.ACTION2);
-		suported.add(SensorAction.ACTION3);
-		Sensor sensor = new Sensor(21, SensorStatus.NEW, SensorType.TESTTYPE1, suported);
-		Sensor sensor2 = new Sensor(22, SensorStatus.DELETED, SensorType.TESTTYPE2, suported);
-		Sensor sensor3 = new Sensor(23, SensorStatus.MISSING, SensorType.TESTTYPE1, suported);
-		Sensor sensor4 = new Sensor(24, SensorStatus.WORKING, SensorType.TESTTYPE2, suported);
-		Sensor sensor5 = new Sensor(25, SensorStatus.NEW, SensorType.TESTTYPE1, suported);
-		Sensor sensor6 = new Sensor(26, SensorStatus.NEW, SensorType.TESTTYPE2, suported);
-		sensorList.add(sensor);
-		sensorList.add(sensor2);
-		sensorList.add(sensor3);
-		sensorList.add(sensor4);
-		sensorList.add(sensor5);
-		sensorList.add(sensor6);
-		Gateway gateway = new Gateway("New Gate Way name", "new GW URL", sensorList);
-		gateway.setSensorList(sensorList);
+		List<Module> moduleList = new ArrayList<Module>();
+		Set<ModuleAction> suported = new TreeSet<ModuleAction>();
+		suported.add(ModuleAction.ACTION1);
+		suported.add(ModuleAction.ACTION2);
+		suported.add(ModuleAction.ACTION3);
+		Module module = new Module(21, ModuleStatus.NEW, ModuleType.TESTTYPE1, suported);
+		Module module2 = new Module(22, ModuleStatus.DELETED, ModuleType.TESTTYPE2, suported);
+		Module module3 = new Module(23, ModuleStatus.MISSING, ModuleType.TESTTYPE1, suported);
+		Module module4 = new Module(24, ModuleStatus.WORKING, ModuleType.TESTTYPE2, suported);
+		Module module5 = new Module(25, ModuleStatus.NEW, ModuleType.TESTTYPE1, suported);
+		Module module6 = new Module(26, ModuleStatus.NEW, ModuleType.TESTTYPE2, suported);
+		moduleList.add(module);
+		moduleList.add(module2);
+		moduleList.add(module3);
+		moduleList.add(module4);
+		moduleList.add(module5);
+		moduleList.add(module6);
+		Gateway gateway = new Gateway("New Gate Way name", "new GW URL", moduleList);
+		gateway.setModuleList(moduleList);
 		gatewayDAO.createGateway(gateway);
 		User user = new User("OLEH", "IVANCUK", "ivanchuk@mail.com", "ivanchukrec@mail.com", "seCrEtPassword",
 				"+380660000008");

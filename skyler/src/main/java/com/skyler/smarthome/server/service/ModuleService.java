@@ -3,13 +3,13 @@ package com.skyler.smarthome.server.service;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
-import com.skyler.smarthome.server.enums.SensorStatus;
+import com.skyler.smarthome.server.enums.ModuleStatus;
 
-public class SensorService {
+public class ModuleService {
 
-	final static Logger logger = Logger.getLogger(SensorService.class);
+	final static Logger logger = Logger.getLogger(ModuleService.class);
 	
-	public static Query setSensorStatusForQuery(Query query, SensorStatus status) {
+	public static Query setModuleStatusForQuery(Query query, ModuleStatus status) {
 
 		if (query != null) {
 			switch (status) {

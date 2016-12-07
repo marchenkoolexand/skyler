@@ -33,7 +33,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.skyler.smarthome.server.model.User</value>
-				<value>com.skyler.smarthome.server.model.Sensor</value>
+				<value>com.skyler.smarthome.server.model.Module</value>
 				<value>com.skyler.smarthome.server.model.Gateway</value>
 			</list>
 		</property>

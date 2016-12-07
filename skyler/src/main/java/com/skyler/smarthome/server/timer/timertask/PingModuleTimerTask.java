@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.skyler.smarthome.server.service.GatewayService;
 
-public class PingSensorTimerTask extends TimerTask{
+public class PingModuleTimerTask extends TimerTask{
 
 	final static Logger logger = Logger.getLogger(GatewayService.class);
 	

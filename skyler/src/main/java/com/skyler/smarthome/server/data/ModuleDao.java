@@ -2,20 +2,20 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
-import com.skyler.smarthome.server.enums.SensorStatus;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.enums.ModuleStatus;
+import com.skyler.smarthome.server.model.Module;
 
-public interface SensorDao {
+public interface ModuleDao {
 
-	public List<Sensor> getAllSensors();
+	public List<Module> getAllModules();
 
-	public Sensor getSensorById(int id);
+	public Module getModuleById(int id);
 
-	public List<Sensor> getSensorByStatus(SensorStatus status);
+	public List<Module> getModuleByStatus(ModuleStatus status);
 
-	public boolean addSensorToGateway(int gateway, Sensor sensor);
+	public boolean addModuleToGateway(int gateway, Module module);
 
-	public boolean addSensorListToGateway(int gateway, List<Sensor> sensorList);
+	public boolean addModuleListToGateway(int gateway, List<Module> moduleList);
 
-	public boolean setSensorStatus(int sensorId,SensorStatus status);
+	public boolean setModuleStatus(int moduleId,ModuleStatus status);
 }

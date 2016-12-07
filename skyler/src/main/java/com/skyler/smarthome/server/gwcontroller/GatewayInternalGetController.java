@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.skyler.smarthome.server.data.GatewayDao;
-import com.skyler.smarthome.server.data.SensorDao;
-import com.skyler.smarthome.server.enums.SensorStatus;
+import com.skyler.smarthome.server.data.ModuleDao;
+import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.model.Module;
 
 @Controller
 @RequestMapping("/internal")
@@ -27,18 +27,18 @@ public class GatewayInternalGetController {
 	@Autowired
 	GatewayDao gatewayDAO;
 	@Autowired
-	SensorDao sensorDao;
+	ModuleDao moduleDao;
 
 	@RequestMapping(value = "/registergateway", method = RequestMethod.POST)
 	public void registerGateway(@RequestBody Gateway gateway) {
 		boolean result = gatewayDAO.createGateway(gateway);
 	}
 
-	@RequestMapping(value = "/registersensor/{gatewayId}", method = RequestMethod.POST)
-	public void registerSensor(@RequestBody Sensor sensor, @PathVariable int gatewayId) {
-		sensor.setTimeStamp(new Date());
-		sensor.setSensorStatus(SensorStatus.NEW);
-		boolean result = sensorDao.addSensorToGateway(gatewayId, sensor);
+	@RequestMapping(value = "/registermodule/{gatewayId}", method = RequestMethod.POST)
+	public void registerModule(@RequestBody Module module, @PathVariable int gatewayId) {
+		module.setTimeStamp(new Date());
+		module.setModuleStatus(ModuleStatus.NEW);
+		boolean result = moduleDao.addModuleToGateway(gatewayId, module);
 	}
 
 	@RequestMapping(value = "/gateway/delete/{gatewayid}", method = RequestMethod.POST)
@@ -63,18 +63,18 @@ public class GatewayInternalGetController {
 		return gateways;
 	}
 
-	@RequestMapping(value = "/mark/sensor/{sensorId}/missing/", method = RequestMethod.POST)
-	public void markSensorMissing(@PathVariable int sensorId) {
-		boolean result = sensorDao.setSensorStatus(sensorId, SensorStatus.MISSING);
+	@RequestMapping(value = "/mark/module/{moduleId}/missing/", method = RequestMethod.POST)
+	public void markModuleMissing(@PathVariable int moduleId) {
+		boolean result = moduleDao.setModuleStatus(moduleId, ModuleStatus.MISSING);
 	}
 
-	@RequestMapping(value = "/mark/sensor/{sensorId}/deleted/", method = RequestMethod.POST)
-	public void markSensorDeleted(@PathVariable int sensorId) {
-		boolean result = sensorDao.setSensorStatus(sensorId, SensorStatus.DELETED);
+	@RequestMapping(value = "/mark/module/{moduleId}/deleted/", method = RequestMethod.POST)
+	public void markModuleDeleted(@PathVariable int moduleId) {
+		boolean result = moduleDao.setModuleStatus(moduleId, ModuleStatus.DELETED);
 	}
 
-	@RequestMapping(value = "/mark/sensor/{sensorId}/working/", method = RequestMethod.POST)
-	public void markSensorWorking(@PathVariable int sensorId) {
-		boolean result = sensorDao.setSensorStatus(sensorId, SensorStatus.WORKING);
+	@RequestMapping(value = "/mark/module/{moduleId}/working/", method = RequestMethod.POST)
+	public void markModuleWorking(@PathVariable int moduleId) {
+		boolean result = moduleDao.setModuleStatus(moduleId, ModuleStatus.WORKING);
 	}
 }
