@@ -8,9 +8,13 @@ public interface UserDao {
 
 	public boolean createNewUser(User user);
 
+	public List<User> getAllUserWithOutPassword();
+	
 	public List<User> getAllUser();
 
 	public User getUserById(int id);
+	
+	public User getUserByIdWithOutPassword(int id);
 
 	public boolean updateUser(int userId, String userField, String newParam);
 

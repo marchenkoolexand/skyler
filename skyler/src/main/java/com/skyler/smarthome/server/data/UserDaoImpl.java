@@ -1,6 +1,5 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -40,15 +39,27 @@ public class UserDaoImpl implements UserDao {
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
+	public List<User> getAllUserWithOutPassword() {
+		Session session = sessionFactory.openSession();
+		try {
+			List<User> userList = session.createQuery("from User").list();
+
+			userList.forEach(user -> user.setPassword(""));
+
+			return userList;
+		} catch (HibernateException e) {
+			return null;
+		} finally {
+			session.close();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<User> getAllUser() {
 		Session session = sessionFactory.openSession();
 		try {
 			List<User> userList = session.createQuery("from User").list();
-			Iterator<User> iterator = userList.iterator();
-			while (iterator.hasNext()) {
-				User user = iterator.next();
-				user.setPassword("");
-			}
 			return userList;
 		} catch (HibernateException e) {
 			return null;
@@ -59,6 +70,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUserById(int id) {
+		Session session = sessionFactory.openSession();
+		try {
+			User user = (User) session.get(User.class, id);
+			return user;
+		} catch (HibernateException e) {
+			return null;
+		} finally {
+
+		}
+	}
+
+	@Override
+	public User getUserByIdWithOutPassword(int id) {
 		Session session = sessionFactory.openSession();
 		try {
 			User user = (User) session.get(User.class, id);
