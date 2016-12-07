@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.gwcontroller;
+package com.skyler.smarthome.server.controller.gwcontroller;
 
 import java.util.Date;
 import java.util.List;

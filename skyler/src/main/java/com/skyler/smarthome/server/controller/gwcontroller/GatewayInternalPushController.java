@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.gwcontroller;
+package com.skyler.smarthome.server.controller.gwcontroller;
 
 import java.net.URL;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.uicontroller;
+package com.skyler.smarthome.server.controller.uicontroller;
 
 import java.util.List;
 
