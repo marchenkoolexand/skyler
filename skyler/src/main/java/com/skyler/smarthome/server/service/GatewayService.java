@@ -21,5 +21,4 @@ public class GatewayService {
 		}
 		return gateway;
 	}
-
 }

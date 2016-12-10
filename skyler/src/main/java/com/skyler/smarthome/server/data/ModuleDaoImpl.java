@@ -47,6 +47,7 @@ public class ModuleDaoImpl implements ModuleDao {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Module> getModuleByStatus(ModuleStatus status) {
 

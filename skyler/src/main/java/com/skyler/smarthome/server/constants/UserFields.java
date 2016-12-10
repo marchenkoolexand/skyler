@@ -1,5 +1,18 @@
 package com.skyler.smarthome.server.constants;
 
+import com.skyler.smarthome.server.model.Gateway;
+
+/**
+ * The <code>UserFields</code> interface contains constants which is equal to
+ * User fields, this constants used in UserService class, for updating
+ * User properties.
+ * 
+ * @see Gateway
+ * @see GatewayService
+ * 
+ * @author Oleksandr Marchenko
+ * @version %I%, %G%
+ */
 public interface UserFields {
 	
 	public static final String FIRST_NAME = "firstname";

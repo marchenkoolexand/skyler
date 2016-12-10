@@ -111,5 +111,4 @@ public class Gateway implements Serializable {
 	public String toString() {
 		return "Gateway [id=" + id + ", gwName=" + gwName + ", gwUrl=" + gwUrl + ", modulesList=" + moduleList + "]";
 	}
-
 }

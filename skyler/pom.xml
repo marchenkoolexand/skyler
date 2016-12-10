@@ -11,15 +11,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		
+
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		
+
 		<version.standard.taglibs>1.1.2</version.standard.taglibs>
 		<version.commons.logging>1.2</version.commons.logging>
 		<version.cglib>3.2.4</version.cglib>
 		<version.jackson>2.8.5</version.jackson>
-		<version.slf4j>1.7.5</version.slf4j>
+		<version.slf4j>1.7.21</version.slf4j>
 		<version.servlet>3.1.0</version.servlet>
 		<version.mysql>6.0.5</version.mysql>
 		<version.jpa>1.0.0.Final</version.jpa>
@@ -94,8 +94,6 @@
 
 		<!-- Spring Framework -->
 
-		
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
@@ -118,6 +116,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${version.spring}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -179,11 +183,26 @@
 		<!-- Logging -->
 
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${version.log4j}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -191,7 +210,7 @@
 		</dependency>
 
 		<!-- AOP -->
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
@@ -224,6 +243,18 @@
 			<version>${version.cglib}</version>
 		</dependency>
 
+		<!-- java scheduling -->
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.1</version>
+		</dependency>
 	</dependencies>
 
 </project>

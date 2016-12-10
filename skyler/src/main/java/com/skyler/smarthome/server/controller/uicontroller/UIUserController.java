@@ -26,7 +26,7 @@ public class UIUserController {
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<User> getAllUsers() {
-		List<User> users = userDao.getAllUserWithOutPassword();
+		List<User> users = userDao.getAllUserWithOutSecureInfo();
 		return users;
 	}
 

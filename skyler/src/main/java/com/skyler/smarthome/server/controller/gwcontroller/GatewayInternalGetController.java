@@ -19,6 +19,16 @@ import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Module;
 
+/**
+ * Main internal Gateway GET controller which use to provide ability
+ * register,delete,update Gateway and Modules, or change their status.
+ * 
+ * @see Gateway
+ * @see Module
+ * 
+ * @author Oleksandr Marchenko
+ * @version %I%, %G%
+ */
 @Controller
 @RequestMapping("/internal")
 public class GatewayInternalGetController {
@@ -47,7 +57,8 @@ public class GatewayInternalGetController {
 	}
 
 	@RequestMapping(value = "/gateway/update/{gatewayid}", method = RequestMethod.POST)
-	public void updateGateway(@PathVariable int gatewayid, @RequestParam String gatewayField, @RequestParam String newParam) {
+	public void updateGateway(@PathVariable int gatewayid, @RequestParam String gatewayField,
+			@RequestParam String newParam) {
 		boolean result = gatewayDAO.updateGatewayByField(gatewayid, gatewayField, newParam);
 	}
 

@@ -39,12 +39,17 @@ public class UserDaoImpl implements UserDao {
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public List<User> getAllUserWithOutPassword() {
+	public List<User> getAllUserWithOutSecureInfo() {
 		Session session = sessionFactory.openSession();
 		try {
 			List<User> userList = session.createQuery("from User").list();
 
-			userList.forEach(user -> user.setPassword(""));
+			userList.forEach(user -> {
+				user.setPassword("");
+				user.setEmail("");
+				user.setRecoveryEmail("");
+				user.setPhoneNumber("");
+			});
 
 			return userList;
 		} catch (HibernateException e) {
@@ -82,11 +87,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUserByIdWithOutPassword(int id) {
+	public User getUserByIdWithOutSecureInfo(int id) {
 		Session session = sessionFactory.openSession();
 		try {
 			User user = (User) session.get(User.class, id);
 			user.setPassword("");
+			user.setEmail("");
+			user.setRecoveryEmail("");
+			user.setPhoneNumber("");
+			
 			return user;
 		} catch (HibernateException e) {
 			return null;

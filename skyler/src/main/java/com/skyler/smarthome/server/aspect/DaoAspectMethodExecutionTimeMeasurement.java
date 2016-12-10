@@ -9,14 +9,28 @@ import org.springframework.stereotype.Component;
 
 import com.skyler.smarthome.server.data.GatewayDao;
 
+/**
+ * The <code>DaoAspectMethodExecutionTimeMeasurement</code> class contains
+ * methods, which provide ability to measure time of all DAO methods.
+ * 
+ * @author Oleksandr Marchenko
+ * @version  %I%, %G%
+ */
+
 @Aspect
 @Component
-public class DaoAspectMethodExecutionTimeMeasurement {
+final public class DaoAspectMethodExecutionTimeMeasurement {
 	final static Logger logger = Logger.getLogger(GatewayDao.class);
 
 	long startTime = 0L;
 	long elapsedTime = 0L;
 
+	/**
+	 * Separated methods used, because DAO methods does not return value to
+	 * controller if used @Around annotation.
+	 * 
+	 * @param joinPoint
+	 */
 	@Before("execution(* com.skyler.smarthome.server.data..*(..))")
 	public void timeMeasurementBefore(JoinPoint joinPoint) {
 		startTime = System.currentTimeMillis();
