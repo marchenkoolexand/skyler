@@ -2,8 +2,11 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.skyler.smarthome.server.model.Gateway;
 
+@Repository
 public interface GatewayDao {
 
 	List<Gateway> getAllGateways();

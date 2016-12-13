@@ -9,7 +9,7 @@ public class GatewayInternalPushController {
 
 	final static Logger logger = Logger.getLogger(GatewayInternalPushController.class);
 
-	@Autowired
+	@Autowired(required=true)
 	GatewayDao gatewayDAO;
 	
 	

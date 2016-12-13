@@ -20,6 +20,7 @@ import com.skyler.smarthome.server.data.GatewayDao;
 @Aspect
 @Component
 final public class DaoAspectMethodExecutionTimeMeasurement {
+	
 	final static Logger logger = Logger.getLogger(GatewayDao.class);
 
 	long startTime = 0L;

@@ -8,12 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.skyler.smarthome.server.model.User;
 import com.skyler.smarthome.server.service.UserService;
 
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	final static Logger logger = Logger.getLogger(UserDaoImpl.class);

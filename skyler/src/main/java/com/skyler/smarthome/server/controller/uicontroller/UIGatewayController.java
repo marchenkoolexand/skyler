@@ -20,7 +20,7 @@ public class UIGatewayController {
 
 	final static Logger logger = Logger.getLogger(UIGatewayController.class);
 
-	@Autowired
+	@Autowired(required=true)
 	GatewayDao gatewayDao;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")

@@ -21,7 +21,7 @@ public class UIUserController {
 
 	final static Logger logger = Logger.getLogger(UIUserController.class);
 
-	@Autowired
+	@Autowired(required=true)
 	UserDao userDao;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")

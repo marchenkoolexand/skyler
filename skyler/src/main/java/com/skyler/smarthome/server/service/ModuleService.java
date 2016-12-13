@@ -2,9 +2,11 @@ package com.skyler.smarthome.server.service;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.springframework.stereotype.Service;
 
 import com.skyler.smarthome.server.enums.ModuleStatus;
 
+@Service
 public class ModuleService {
 
 	final static Logger logger = Logger.getLogger(ModuleService.class);

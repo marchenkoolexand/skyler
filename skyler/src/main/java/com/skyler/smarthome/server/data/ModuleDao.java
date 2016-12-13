@@ -2,9 +2,12 @@ package com.skyler.smarthome.server.data;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Module;
 
+@Repository
 public interface ModuleDao {
 
 	public List<Module> getAllModules();

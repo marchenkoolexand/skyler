@@ -20,7 +20,7 @@ public class UIModuleController {
 
 	final static Logger logger = Logger.getLogger(UIModuleController.class);
 
-	@Autowired
+	@Autowired(required=true)
 	private ModuleDao moduleDao;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")

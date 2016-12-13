@@ -1,10 +1,12 @@
 package com.skyler.smarthome.server.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import com.skyler.smarthome.server.constants.UserFields;
 import com.skyler.smarthome.server.model.User;
 
+@Service
 public class UserService {
 
 	final static Logger logger = Logger.getLogger(UserService.class);
@@ -30,5 +32,4 @@ public class UserService {
 		}
 		return user;
 	}
-
 }

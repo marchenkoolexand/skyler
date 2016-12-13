@@ -19,7 +19,7 @@ public class GatewayInternalPingController {
 	
 	final static Logger logger = Logger.getLogger(GatewayInternalPingController.class);
 
-	@Autowired
+	@Autowired(required=true)
 	GatewayDao gatewayDAO;
 
 	public List<Gateway> pingForGateways(URL baseGatewayUrl) {

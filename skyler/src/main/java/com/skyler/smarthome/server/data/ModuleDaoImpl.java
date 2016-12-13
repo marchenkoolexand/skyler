@@ -10,14 +10,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Module;
 import com.skyler.smarthome.server.service.ModuleService;
 
-@Component
+@Repository
 public class ModuleDaoImpl implements ModuleDao {
 
 	final static Logger logger = Logger.getLogger(ModuleDaoImpl.class);
