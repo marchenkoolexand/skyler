@@ -1,21 +1,15 @@
 package com.skyler.smarthome.server.controller.uicontroller;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.skyler.smarthome.server.data.UserDao;
 import com.skyler.smarthome.server.model.User;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/user")
 public class UIUserController {
 
@@ -24,8 +18,8 @@ public class UIUserController {
 	@Autowired(required=true)
 	UserDao userDao;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<User> getAllUsers() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<User> getAllUsers() {
 		List<User> users = userDao.getAllUserWithOutSecureInfo();
 		return users;
 	}
@@ -37,8 +31,8 @@ public class UIUserController {
 		}
 	};
 
-	@RequestMapping(value = "/{userid}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody User getUserById(@PathVariable int userid) {
+	@RequestMapping(value = "/{userid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public  User getUserById(@PathVariable int userid) {
 		if (userid > 0) {
 			User user = userDao.getUserById(userid);
 			return user;

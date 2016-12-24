@@ -1,7 +1,7 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.List;
-
+import com.skyler.smarthome.server.model.User;
+import com.skyler.smarthome.server.util.UserUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,8 +10,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.skyler.smarthome.server.model.User;
-import com.skyler.smarthome.server.service.UserService;
+import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -110,7 +109,7 @@ public class UserDaoImpl implements UserDao {
 		Transaction tx = session.beginTransaction();
 		try {
 			User user = (User) session.get(User.class, userId);
-			user = UserService.updateUserByField(user, userField, newParam);
+			user = UserUtil.updateUserByField(user, userField, newParam);
 			session.merge(user);
 			return true;
 		} catch (HibernateException e) {

@@ -1,15 +1,14 @@
-package com.skyler.smarthome.server.service;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
+package com.skyler.smarthome.server.util;
 
 import com.skyler.smarthome.server.constants.GatewayFields;
 import com.skyler.smarthome.server.model.Gateway;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 @Service
-public class GatewayService {
+public class GatewayUtil {
 
-	final static Logger logger = Logger.getLogger(GatewayService.class);
+	final static Logger logger = Logger.getLogger(GatewayUtil.class);
 
 	public static Gateway updateGatewayByField(Gateway gateway, String gatewayField, String newParam) {
 

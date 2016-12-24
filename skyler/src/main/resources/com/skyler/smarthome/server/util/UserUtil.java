@@ -1,15 +1,14 @@
-package com.skyler.smarthome.server.service;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
+package com.skyler.smarthome.server.util;
 
 import com.skyler.smarthome.server.constants.UserFields;
 import com.skyler.smarthome.server.model.User;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserUtil {
 
-	final static Logger logger = Logger.getLogger(UserService.class);
+	final static Logger logger = Logger.getLogger(UserUtil.class);
 	
 	public static User updateUserByField(User user, String userField, String newParam) {
 

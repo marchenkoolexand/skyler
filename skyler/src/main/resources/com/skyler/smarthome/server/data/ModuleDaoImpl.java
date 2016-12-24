@@ -1,21 +1,16 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.skyler.smarthome.server.enums.ModuleStatus;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Module;
-import com.skyler.smarthome.server.service.ModuleService;
+import com.skyler.smarthome.server.util.ModuleUtil;
+import org.apache.log4j.Logger;
+import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.Iterator;
+import java.util.List;
 
 @Repository
 public class ModuleDaoImpl implements ModuleDao {
@@ -54,7 +49,7 @@ public class ModuleDaoImpl implements ModuleDao {
 		Session session = sessionFactory.openSession();
 		try {
 			Query query = session.createQuery("from Module where s_module_stat = :status ");
-			query = ModuleService.setModuleStatusForQuery(query, status);
+			query = ModuleUtil.setModuleStatusForQuery(query, status);
 			List<Module> list = query.list();
 			return list;
 		} catch (Exception e) {

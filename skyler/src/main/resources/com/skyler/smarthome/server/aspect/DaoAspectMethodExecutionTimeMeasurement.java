@@ -1,13 +1,12 @@
 package com.skyler.smarthome.server.aspect;
 
+import com.skyler.smarthome.server.data.GatewayDao;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-
-import com.skyler.smarthome.server.data.GatewayDao;
 
 /**
  * The <code>DaoAspectMethodExecutionTimeMeasurement</code> class contains
@@ -41,7 +40,7 @@ final public class DaoAspectMethodExecutionTimeMeasurement {
 	public void timeMeasurementAfter(JoinPoint joinPoint) {
 		elapsedTime = System.currentTimeMillis() - startTime;
 		if (logger.isDebugEnabled()) {
-			logger.debug("Execute: " + joinPoint.getSignature() + ", Time elapsed:" + elapsedTime + " Millis");
+			logger.debug("Execute: " + joinPoint.getSignature() + ", Time elapsed: " + elapsedTime + " Millis");
 		}
 	}
 }

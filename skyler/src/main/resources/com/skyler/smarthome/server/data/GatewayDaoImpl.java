@@ -1,8 +1,7 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.skyler.smarthome.server.model.Gateway;
+import com.skyler.smarthome.server.util.GatewayUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -11,8 +10,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.service.GatewayService;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository("gatewayDAO")
 public class GatewayDaoImpl implements GatewayDao {
@@ -90,7 +89,7 @@ public class GatewayDaoImpl implements GatewayDao {
 		Transaction tx = session.beginTransaction();
 		try {
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
-			gateway = GatewayService.updateGatewayByField(gateway, gatewayField, newParam);
+			gateway = GatewayUtil.updateGatewayByField(gateway, gatewayField, newParam);
 			session.merge(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();

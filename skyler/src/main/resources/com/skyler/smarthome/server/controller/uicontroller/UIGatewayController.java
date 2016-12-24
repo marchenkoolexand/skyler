@@ -1,20 +1,15 @@
 package com.skyler.smarthome.server.controller.uicontroller;
 
-import java.util.List;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.skyler.smarthome.server.data.GatewayDao;
 import com.skyler.smarthome.server.model.Gateway;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/gateway")
 public class UIGatewayController {
 
@@ -23,14 +18,14 @@ public class UIGatewayController {
 	@Autowired(required=true)
 	GatewayDao gatewayDao;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Gateway> getAllGateways() {
+	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public  List<Gateway> getAllGateways() {
 		List<Gateway> gatewayList = gatewayDao.getAllGateways();
 		return gatewayList;
 	};
 
-	@RequestMapping(value = "/{gatewayid}", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Gateway getGatewayById(@PathVariable int gatewayid) {
+	@RequestMapping(value = "/{gatewayid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public  Gateway getGatewayById(@PathVariable int gatewayid) {
 		if (gatewayid > 0) {
 			Gateway gateway = gatewayDao.getGatewayById(gatewayid);
 			return gateway;

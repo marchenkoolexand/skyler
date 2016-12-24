@@ -1,15 +1,14 @@
-package com.skyler.smarthome.server.service;
+package com.skyler.smarthome.server.util;
 
+import com.skyler.smarthome.server.enums.ModuleStatus;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 
-import com.skyler.smarthome.server.enums.ModuleStatus;
-
 @Service
-public class ModuleService {
+public class ModuleUtil {
 
-	final static Logger logger = Logger.getLogger(ModuleService.class);
+	final static Logger logger = Logger.getLogger(ModuleUtil.class);
 	
 	public static Query setModuleStatusForQuery(Query query, ModuleStatus status) {
 
