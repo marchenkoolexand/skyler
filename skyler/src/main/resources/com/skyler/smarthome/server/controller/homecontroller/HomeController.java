@@ -3,13 +3,10 @@ package com.skyler.smarthome.server.controller.homecontroller;
 import com.skyler.smarthome.server.data.GatewayDao;
 import com.skyler.smarthome.server.data.ModuleDao;
 import com.skyler.smarthome.server.data.UserDao;
-import com.skyler.smarthome.server.enums.ModuleAction;
-import com.skyler.smarthome.server.enums.ModuleStatus;
-import com.skyler.smarthome.server.enums.ModuleType;
-import com.skyler.smarthome.server.model.Gateway;
-import com.skyler.smarthome.server.model.Module;
-import com.skyler.smarthome.server.model.User;
+import com.skyler.smarthome.server.model.*;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Controller
 @RequestMapping("/")
@@ -33,67 +28,66 @@ public class HomeController {
     @Autowired(required = true)
     UserDao userDaoImpl;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String home() {
         return "index";
     };
 
+    @RequestMapping(value = "/test/",method = RequestMethod.GET)
+    public String test() {
+        addTestData();
+        return "index";
+    };
 
 
+  void addTestData() {
+      Session session = sessionFactory.openSession();
+
+      List<Sensor> sensorList = new ArrayList();
+      Sensor sensor = new Sensor("Sensor 1");
+      Sensor sensor1 = new Sensor("Sensor 2");
+      Sensor sensor2 = new Sensor("Sensor 3");
+      Sensor sensor3 = new Sensor("Sensor 4");
+      Sensor sensor4 = new Sensor("Sensor 5");
+      sensorList.add(sensor);
+      sensorList.add(sensor1);
+      sensorList.add(sensor2);
+      sensorList.add(sensor3);
+      sensorList.add(sensor4);
+      System.out.println("SENSOR LIST " + sensorList);
+
+      List <Actuator>actuatorList = new ArrayList();
+      Actuator actuator = new Actuator("Actuator 1");
+      Actuator actuator1 = new Actuator("Actuator 2");
+      Actuator actuator2 = new Actuator("Actuator 3");
+      Actuator actuator3 = new Actuator("Actuator 4");
+      Actuator actuator4 = new Actuator("Actuator 5");
+      actuatorList.add(actuator);
+      actuatorList.add(actuator1);
+      actuatorList.add(actuator2);
+      actuatorList.add(actuator3);
+      actuatorList.add(actuator4);
+      System.out.println("ACTUATOR LIST " + actuatorList);
+
+      Device device = new Device("device 1");
+      device.addSensorListToDevice(sensorList);
+      device.addActuatorListToDevice(actuatorList);
+      System.out.println("DEVICE " + device);
+
+      Gateway gateway = new Gateway("gwname","192.168.1.1");
+      gateway.addDeviceToGateway(device);
+
+      System.out.println("GATEWAY  " + gateway);
 
 
+      System.out.println("");
 
+      gatewayDAO.createGateway(gateway);
+      userDaoImpl.createNewUser(new User( "firstName",  "lastName",  "email",  "recoveryEmail",  "password","phoneNumber"));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    void addTestData() {
-        List<Module> moduleList = new ArrayList<Module>();
-        Set<ModuleAction> suported = new TreeSet<ModuleAction>();
-        suported.add(ModuleAction.ACTION1);
-        suported.add(ModuleAction.ACTION2);
-        suported.add(ModuleAction.ACTION3);
-        Module module = new Module(21, ModuleStatus.NEW, ModuleType.TESTTYPE1, suported);
-        Module module2 = new Module(22, ModuleStatus.DELETED, ModuleType.TESTTYPE2, suported);
-        Module module3 = new Module(23, ModuleStatus.MISSING, ModuleType.TESTTYPE1, suported);
-        Module module4 = new Module(24, ModuleStatus.WORKING, ModuleType.TESTTYPE2, suported);
-        Module module5 = new Module(25, ModuleStatus.NEW, ModuleType.TESTTYPE1, suported);
-        Module module6 = new Module(26, ModuleStatus.NEW, ModuleType.TESTTYPE2, suported);
-        moduleList.add(module);
-        moduleList.add(module2);
-        moduleList.add(module3);
-        moduleList.add(module4);
-        moduleList.add(module5);
-        moduleList.add(module6);
-        Gateway gateway = new Gateway("New Gate Way name", "new GW URL", moduleList);
-        gateway.setModuleList(moduleList);
-        gatewayDAO.createGateway(gateway);
-        User user = new User("OLEH", "IVANCUK", "ivanchuk@mail.com", "ivanchukrec@mail.com", "seCrEtPassword",
-                "+380660000008");
-        userDaoImpl.createNewUser(user);
-    }
+  }
 }

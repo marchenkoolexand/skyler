@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository("gatewayDAO")
@@ -25,12 +24,12 @@ public class GatewayDaoImpl implements GatewayDao {
 	@Override
 	public List<Gateway> getAllGateways() {
 		Session session = sessionFactory.openSession();
-		List<Gateway> gatewayList = new ArrayList<Gateway>();
+		List<Gateway> gatewayList = null;
 		try {
-			gatewayList = session.createQuery("from Gateway").list();
+			gatewayList = session.createQuery("from com.skyler.smarthome.server.model.Gateway").list();
 			return gatewayList;
 		} catch (HibernateException e) {
-
+				System.out.println(e);
 		} finally {
 			session.close();
 		}
@@ -44,7 +43,7 @@ public class GatewayDaoImpl implements GatewayDao {
 			Gateway gateWay = (Gateway) session.get(Gateway.class, id);
 			return gateWay;
 		} catch (HibernateException e) {
-			
+
 		}
 		return null;
 	}

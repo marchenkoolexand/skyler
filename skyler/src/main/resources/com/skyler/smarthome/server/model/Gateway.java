@@ -1,19 +1,9 @@
 package com.skyler.smarthome.server.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "s_gateways")
@@ -28,19 +18,32 @@ public class Gateway implements Serializable {
 	private int id;
 	@Column(name = "s_gateway_name")
 	private String gwName;
-	@Column(name = "s_gateway_url")
-	private String gwUrl;
+	@Column(name = "s_gateway_ip")
+	private String gwIp;
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@JoinTable(name = "s_joined_gateway_modules", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_module_fk"))
-	private List<Module> moduleList;
+	@JoinTable(name = "s_joined_gateway_devices", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_device_fk"))
+	private List<Device> deviceList = new ArrayList<>();
 
 	public Gateway() {
 	}
-
-	public Gateway(String gwName, String gwUrl, List<Module> moduleList) {
+	public Gateway(String gwName, String gwIp) {
 		this.gwName = gwName;
-		this.gwUrl = gwUrl;
-		this.moduleList = moduleList;
+		this.gwIp = gwIp;
+	}
+
+	public Gateway(String gwName, String gwIp, List<Device> deviceList) {
+		this.gwName = gwName;
+		this.gwIp = gwIp;
+		this.deviceList = deviceList;
+	}
+
+	public void addDeviceToGateway(Device device){
+		deviceList.add(device);
+	}
+
+	public void addDeviceListToGateway(List<Device> deviceList){
+		deviceList.addAll(deviceList);
 	}
 
 	public String getGwName() {
@@ -51,64 +54,56 @@ public class Gateway implements Serializable {
 		this.gwName = gwName;
 	}
 
-	public String getGwUrl() {
-		return gwUrl;
+	public String getGwIp() {
+		return gwIp;
 	}
 
-	public void setGwUrl(String gwUrl) {
-		this.gwUrl = gwUrl;
+	public void setGwIp(String gwIp) {
+		this.gwIp = gwIp;
 	}
 
-	public List<Module> getModuleList() {
-		return moduleList;
+	public int getId() {
+		return id;
 	}
 
-	public void setModuleList(List<Module> moduleList) {
-		this.moduleList = moduleList;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Device> getDeviceList() {
+		return deviceList;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Gateway gateway = (Gateway) o;
+
+		if (id != gateway.id) return false;
+		if (gwName != null ? !gwName.equals(gateway.gwName) : gateway.gwName != null) return false;
+		if (gwIp != null ? !gwIp.equals(gateway.gwIp) : gateway.gwIp != null) return false;
+		return deviceList != null ? deviceList.equals(gateway.deviceList) : gateway.deviceList == null;
+
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((gwName == null) ? 0 : gwName.hashCode());
-		result = prime * result + ((gwUrl == null) ? 0 : gwUrl.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((moduleList == null) ? 0 : moduleList.hashCode());
+		int result = id;
+		result = 31 * result + (gwName != null ? gwName.hashCode() : 0);
+		result = 31 * result + (gwIp != null ? gwIp.hashCode() : 0);
+		result = 31 * result + (deviceList != null ? deviceList.hashCode() : 0);
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Gateway other = (Gateway) obj;
-		if (gwName == null) {
-			if (other.gwName != null)
-				return false;
-		} else if (!gwName.equals(other.gwName))
-			return false;
-		if (gwUrl == null) {
-			if (other.gwUrl != null)
-				return false;
-		} else if (!gwUrl.equals(other.gwUrl))
-			return false;
-		if (id != other.id)
-			return false;
-		if (moduleList == null) {
-			if (other.moduleList != null)
-				return false;
-		} else if (!moduleList.equals(other.moduleList))
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		return "Gateway [id=" + id + ", gwName=" + gwName + ", gwUrl=" + gwUrl + ", modulesList=" + moduleList + "]";
+		return "Gateway{" +
+				"id=" + id +
+				", gwName='" + gwName + '\'' +
+				", gwIp='" + gwIp + '\'' +
+				", deviceList=" + deviceList +
+				'}';
 	}
 }

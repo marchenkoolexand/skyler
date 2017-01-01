@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getAllUserWithOutSecureInfo() {
 		Session session = sessionFactory.openSession();
 		try {
-			List<User> userList = session.createQuery("from User").list();
+			List<User> userList = session.createQuery("from com.skyler.smarthome.server.model.User").list();
 
 			userList.forEach(user -> {
 				user.setPassword("");

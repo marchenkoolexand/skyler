@@ -17,7 +17,7 @@ public class GatewayUtil {
 			gateway.setGwName(newParam);
 			break;
 		case GatewayFields.GATEWAY_URL:
-			gateway.setGwUrl(newParam);
+			gateway.setGwIp(newParam);
 			break;
 		}
 		return gateway;

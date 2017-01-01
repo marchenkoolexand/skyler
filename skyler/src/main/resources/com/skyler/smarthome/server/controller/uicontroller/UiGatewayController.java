@@ -11,14 +11,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gateway")
-public class UIGatewayController {
+public class UiGatewayController {
 
-	final static Logger logger = Logger.getLogger(UIGatewayController.class);
+	final static Logger logger = Logger.getLogger(UiGatewayController.class);
 
 	@Autowired(required=true)
 	GatewayDao gatewayDao;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public  List<Gateway> getAllGateways() {
 		List<Gateway> gatewayList = gatewayDao.getAllGateways();
 		return gatewayList;

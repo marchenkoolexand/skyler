@@ -1,9 +1,9 @@
-package com.skyler.smarthome.server.timer;
-
-import java.util.Timer;
+package com.skyler.smarthome.server.scheduling;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
+
+import java.util.Timer;
 
 @Component
 public class TimerTaskExecutor {

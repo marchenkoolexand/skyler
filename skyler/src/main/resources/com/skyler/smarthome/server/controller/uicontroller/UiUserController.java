@@ -11,14 +11,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UIUserController {
+public class UiUserController {
 
-	final static Logger logger = Logger.getLogger(UIUserController.class);
+	final static Logger logger = Logger.getLogger(UiUserController.class);
 
 	@Autowired(required=true)
 	UserDao userDao;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<User> getAllUsers() {
 		List<User> users = userDao.getAllUserWithOutSecureInfo();
 		return users;

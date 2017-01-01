@@ -1,15 +1,17 @@
 package com.skyler.smarthome.server.data;
 
-import com.skyler.smarthome.server.enums.ModuleStatus;
-import com.skyler.smarthome.server.model.Gateway;
+import com.skyler.smarthome.server.model.Actuator;
+import com.skyler.smarthome.server.model.Device;
 import com.skyler.smarthome.server.model.Module;
-import com.skyler.smarthome.server.util.ModuleUtil;
+import com.skyler.smarthome.server.model.Sensor;
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -21,18 +23,10 @@ public class ModuleDaoImpl implements ModuleDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Module getModuleById(int id) {
-		Session session = sessionFactory.openSession();
-		Module module = (Module) session.get(Module.class, id);
-		return module;
-	}
-
-	@Override
 	public List<Module> getAllModules() {
 		Session session = sessionFactory.openSession();
 		try {
-			@SuppressWarnings("unchecked")
-			List<Module> moduleList = session.createQuery("from Module").list();
+			List<Module> moduleList = session.createQuery("from com.skyler.smarthome.server.model.Module").list();
 			return moduleList;
 		} catch (HibernateException e) {
 
@@ -42,30 +36,56 @@ public class ModuleDaoImpl implements ModuleDao {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Module> getModuleByStatus(ModuleStatus status) {
-
+	public List<Sensor> getAllSensor() {
 		Session session = sessionFactory.openSession();
 		try {
-			Query query = session.createQuery("from Module where s_module_stat = :status ");
-			query = ModuleUtil.setModuleStatusForQuery(query, status);
-			List<Module> list = query.list();
-			return list;
-		} catch (Exception e) {
+			List<Sensor> sensorList = session.createQuery("from Sensor").list();
+			return sensorList;
+		} catch (HibernateException e) {
 
+		} finally {
+			session.close();
 		}
 		return null;
 	}
 
 	@Override
-	public boolean addModuleToGateway(int gatewayId, Module module) {
+	public List<Actuator> getAllActuator() {
+		Session session = sessionFactory.openSession();
+		try {
+			List<Actuator> actuatorList = session.createQuery("from Actuator").list();
+			return actuatorList;
+		} catch (HibernateException e) {
+
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public Sensor getSensorById(int sensorId) {
+		Session session = sessionFactory.openSession();
+		Sensor sensor = (Sensor) session.get(Sensor.class, sensorId);
+		return sensor;
+	}
+
+	@Override
+	public Actuator getActuatorById(int actuatorId) {
+		Session session = sessionFactory.openSession();
+		Actuator actuator = (Actuator) session.get(Sensor.class, actuatorId);
+		return actuator;
+	}
+
+	@Override
+	public boolean addModuleToDevice(int deviceId, Module module) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
-			gateway.getModuleList().add(module);
-			session.save(gateway);
+			Device device = (Device) session.get(Device.class, deviceId);
+			device.addModuleToDevice(module);
+			session.save(device);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
@@ -77,35 +97,36 @@ public class ModuleDaoImpl implements ModuleDao {
 	}
 
 	@Override
-	public boolean addModuleListToGateway(int gatewayId, List<Module> moduleList) {
+	public boolean addSensorListToDevice(int deviceId, List<Sensor> sensorList) {
 		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		try {
-			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
-			Iterator<Module> iterator = moduleList.iterator();
-			while (iterator.hasNext()) {
-				gateway.getModuleList().add(iterator.next());
-				session.save(gateway);
-			}
+			Device device = (Device) session.get(Device.class, deviceId);
+			device.addSensorListToDevice(sensorList);
+			session.save(device);
 		} catch (HibernateException e) {
-
+			tx.rollback();
+			return false;
 		} finally {
+			tx.commit();
 			session.close();
 		}
 		return false;
-
 	}
 
 	@Override
-	public boolean setModuleStatus(int moduleId, ModuleStatus status) {
+	public boolean addActuatorListToDevice(int deviceId, List<Actuator> actuatorList) {
 		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
 		try {
-			Module module = (Module) session.get(Module.class, status);
-			module.setModuleStatus(status);
-			session.merge(module);
-			return true;
-		} catch (Exception e) {
-
+			Device device = (Device) session.get(Device.class, deviceId);
+			device.addActuatorListToDevice(actuatorList);
+			session.save(device);
+		} catch (HibernateException e) {
+			tx.rollback();
+			return false;
 		} finally {
+			tx.commit();
 			session.close();
 		}
 		return false;

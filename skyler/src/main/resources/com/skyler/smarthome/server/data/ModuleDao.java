@@ -1,24 +1,29 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.List;
-
+import com.skyler.smarthome.server.model.Actuator;
+import com.skyler.smarthome.server.model.Module;
+import com.skyler.smarthome.server.model.Sensor;
 import org.springframework.stereotype.Repository;
 
-import com.skyler.smarthome.server.enums.ModuleStatus;
-import com.skyler.smarthome.server.model.Module;
+import java.util.List;
 
 @Repository
 public interface ModuleDao {
 
 	public List<Module> getAllModules();
 
-	public Module getModuleById(int id);
+    public List<Sensor> getAllSensor();
 
-	public List<Module> getModuleByStatus(ModuleStatus status);
+    public List<Actuator> getAllActuator();
 
-	public boolean addModuleToGateway(int gateway, Module module);
+	public Sensor getSensorById(int sensorId);
 
-	public boolean addModuleListToGateway(int gateway, List<Module> moduleList);
+    public Actuator getActuatorById(int actuatorId);
 
-	public boolean setModuleStatus(int moduleId,ModuleStatus status);
+	public boolean addModuleToDevice(int deviceId, Module module);
+
+	public boolean addSensorListToDevice(int deviceId, List<Sensor> sensorList);
+
+	public boolean addActuatorListToDevice(int deviceId, List<Actuator> actuatorList);
+
 }
