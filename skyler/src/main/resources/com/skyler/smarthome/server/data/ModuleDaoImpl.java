@@ -1,9 +1,6 @@
 package com.skyler.smarthome.server.data;
 
-import com.skyler.smarthome.server.model.Actuator;
-import com.skyler.smarthome.server.model.Device;
-import com.skyler.smarthome.server.model.Module;
-import com.skyler.smarthome.server.model.Sensor;
+import com.skyler.smarthome.server.model.*;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,6 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Repository
@@ -79,13 +77,20 @@ public class ModuleDaoImpl implements ModuleDao {
 	}
 
 	@Override
-	public boolean addModuleToDevice(int deviceId, Module module) {
+	public boolean addModuleToDevice(int gatewayId,int deviceId, Module module) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			Device device = (Device) session.get(Device.class, deviceId);
-			device.addModuleToDevice(module);
-			session.save(device);
+			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+			List<Device> deviceList = gateway.getDeviceList();
+			Iterator<Device> deviceIterator = deviceList.iterator();
+			while (deviceIterator.hasNext()){
+				Device device = deviceIterator.next();
+				if(device.getId() == deviceId){
+					device.addModuleToDevice(module);
+				}
+			}
+			session.save(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
@@ -97,13 +102,20 @@ public class ModuleDaoImpl implements ModuleDao {
 	}
 
 	@Override
-	public boolean addSensorListToDevice(int deviceId, List<Sensor> sensorList) {
+	public boolean addSensorListToDevice(int gatewayId,int deviceId, List<Sensor> sensorList) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			Device device = (Device) session.get(Device.class, deviceId);
-			device.addSensorListToDevice(sensorList);
-			session.save(device);
+			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+			List<Device> deviceList = gateway.getDeviceList();
+			Iterator<Device> deviceIterator = deviceList.iterator();
+			while (deviceIterator.hasNext()){
+				Device device = deviceIterator.next();
+				if(device.getId() == deviceId){
+					device.addSensorListToDevice(sensorList);
+				}
+			}
+			session.save(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
@@ -115,13 +127,20 @@ public class ModuleDaoImpl implements ModuleDao {
 	}
 
 	@Override
-	public boolean addActuatorListToDevice(int deviceId, List<Actuator> actuatorList) {
+	public boolean addActuatorListToDevice(int gatewayId,int deviceId, List<Actuator> actuatorList) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			Device device = (Device) session.get(Device.class, deviceId);
-			device.addActuatorListToDevice(actuatorList);
-			session.save(device);
+			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
+			List<Device> deviceList = gateway.getDeviceList();
+			Iterator<Device> deviceIterator = deviceList.iterator();
+			while (deviceIterator.hasNext()){
+				Device device = deviceIterator.next();
+				if(device.getId() == deviceId){
+					device.addActuatorListToDevice(actuatorList);
+				}
+			}
+			session.save(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;

@@ -34,7 +34,7 @@ public class UiGatewayController {
 		}
 	};
 
-	@RequestMapping(value = "/update/{gatewayid}", method = RequestMethod.POST)
+	@RequestMapping(value = "/update/{gatewayid}", method = RequestMethod.PATCH)
 	public void updateGateway(@PathVariable int gatewayid, @RequestParam String gatewayField, @RequestParam String newParam) {
 		if (gatewayid > 0 && gatewayField != null && newParam != null) {
 			boolean result = gatewayDao.updateGatewayByField(gatewayid, gatewayField, newParam);

@@ -20,7 +20,7 @@ public class UiDeviceController {
 
     final static Logger logger = Logger.getLogger(UiDeviceController.class);
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     DeviceDao deviceDAO;
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -30,19 +30,28 @@ public class UiDeviceController {
 
     @RequestMapping(value = "/{gateway_id}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Device> getAllDevicesFromGateway(@PathVariable int gateway_id) {
-        return  deviceDAO.getAllDevicesFromGateway(gateway_id);
+        if (gateway_id > 0) {
+            return deviceDAO.getAllDevicesFromGateway(gateway_id);
+        } else {
+            return null;
+        }
     };
 
     @RequestMapping(value = "/{device_id}/sensors/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Sensor> getDeviceSensors(@PathVariable int device_id) {
-        return  deviceDAO.getDeviceById(device_id).getSensorList();
+        if (device_id > 0) {
+            return deviceDAO.getDeviceById(device_id).getSensorList();
+        } else {
+            return null;
+        }
     };
 
     @RequestMapping(value = "/{device_id}/actuators/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Actuator> getDeviceActuators(@PathVariable int device_id) {
-        return  deviceDAO.getDeviceById(device_id).getActuatorList();
+        if (device_id > 0) {
+            return deviceDAO.getDeviceById(device_id).getActuatorList();
+        } else {
+            return null;
+        }
     };
-
-
-
 }

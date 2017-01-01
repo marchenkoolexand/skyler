@@ -31,7 +31,6 @@ public class HomeController {
     @Autowired
     private SessionFactory sessionFactory;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public String home() {
         return "index";
@@ -40,6 +39,7 @@ public class HomeController {
     @RequestMapping(value = "/test/",method = RequestMethod.GET)
     public String test() {
         addTestData();
+
         return "index";
     };
 

@@ -20,10 +20,10 @@ public interface ModuleDao {
 
     public Actuator getActuatorById(int actuatorId);
 
-	public boolean addModuleToDevice(int deviceId, Module module);
+	public boolean addModuleToDevice(int gatewayId, int deviceId, Module module);
 
-	public boolean addSensorListToDevice(int deviceId, List<Sensor> sensorList);
+	public boolean addSensorListToDevice(int gatewayId,int deviceId, List<Sensor> sensorList);
 
-	public boolean addActuatorListToDevice(int deviceId, List<Actuator> actuatorList);
+	public boolean addActuatorListToDevice(int gatewayId,int deviceId, List<Actuator> actuatorList);
 
 }
