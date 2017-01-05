@@ -31,26 +31,42 @@ public class UiModuleController {
 
 	@RequestMapping(value = "/sensors/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public  List<Sensor> allSensors() {
-		return moduleDao.getAllSensor();
+		List<Sensor> allSensorList = moduleDao.getAllSensor();
+		if (logger.isDebugEnabled()) {
+			logger.debug("/module/sensors/ - Return:" + allSensorList);
+		}
+		return allSensorList;
 	}
 
 	@RequestMapping(value = "/actuators/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public  List<Actuator> allActuators() {
+		List<Actuator> allActuatorList = moduleDao.getAllActuator();
+		if (logger.isDebugEnabled()) {
+			logger.debug("/module/actuators/ - Return:" + allActuatorList);
+		}
 		return moduleDao.getAllActuator();
 	}
 
 	@RequestMapping(value = "/sensors/{sensor_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Sensor getSensorById(@PathVariable int sensor_id) {
 		if (sensor_id > 0) {
-			return moduleDao.getSensorById(sensor_id);
+			Sensor sensor = moduleDao.getSensorById(sensor_id);
+			if (logger.isDebugEnabled()) {
+				logger.debug("/module/sensors/"+sensor_id +" - Return:" + sensor);
+			}
+			return sensor;
 		} else {
 			return null;
 		}
 	}
-	@RequestMapping(value = "/sensors/{actuator_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/actuators/{actuator_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Actuator getActuatorById(@PathVariable int actuator_id) {
 		if (actuator_id > 0) {
-			return moduleDao.getActuatorById(actuator_id);
+			Actuator actuator = moduleDao.getActuatorById(actuator_id);
+			if (logger.isDebugEnabled()) {
+				logger.debug("/module/actuators/"+actuator_id +" - Return:" + actuator);
+			}
+			return actuator;
 		} else {
 			return null;
 		}

@@ -21,6 +21,9 @@ public class UiGatewayController {
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public  List<Gateway> getAllGateways() {
 		List<Gateway> gatewayList = gatewayDao.getAllGateways();
+		if (logger.isDebugEnabled()) {
+			logger.debug("/gateway/  - Return:" + gatewayList);
+		}
 		return gatewayList;
 	};
 
@@ -28,6 +31,9 @@ public class UiGatewayController {
 	public  Gateway getGatewayById(@PathVariable int gatewayid) {
 		if (gatewayid > 0) {
 			Gateway gateway = gatewayDao.getGatewayById(gatewayid);
+			if (logger.isDebugEnabled()) {
+				logger.debug("/gateway/"+ gatewayid + "  - Return:" + gateway);
+			}
 			return gateway;
 		} else {
 			return null;

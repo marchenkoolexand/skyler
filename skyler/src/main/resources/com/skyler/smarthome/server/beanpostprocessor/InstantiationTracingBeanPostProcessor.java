@@ -15,7 +15,6 @@ public class InstantiationTracingBeanPostProcessor implements BeanPostProcessor 
 
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-
 		if (logger.isDebugEnabled()) {
 			logger.debug("Bean '" + beanName + "' created : " + bean.toString());
 		}

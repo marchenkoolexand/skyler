@@ -21,6 +21,9 @@ public class UiUserController {
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<User> getAllUsers() {
 		List<User> users = userDao.getAllUserWithOutSecureInfo();
+		if (logger.isDebugEnabled()) {
+			logger.debug("/user/ - Return:" + users);
+		}
 		return users;
 	}
 
@@ -35,6 +38,9 @@ public class UiUserController {
 	public  User getUserById(@PathVariable int userid) {
 		if (userid > 0) {
 			User user = userDao.getUserById(userid);
+			if (logger.isDebugEnabled()) {
+				logger.debug("/user/" + userid +" - Return:" + user);
+			}
 			return user;
 		} else {
 			return null;

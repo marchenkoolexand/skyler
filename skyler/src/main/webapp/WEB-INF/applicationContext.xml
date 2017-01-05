@@ -7,7 +7,6 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
     <import resource="beans.xml"/>
-
     <context:component-scan base-package="com.skyler.smarthome.server" />
 
 </beans>

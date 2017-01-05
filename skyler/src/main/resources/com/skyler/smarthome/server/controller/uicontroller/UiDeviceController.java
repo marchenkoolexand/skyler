@@ -25,33 +25,53 @@ public class UiDeviceController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Device> getAllDevices() {
-        return deviceDAO.getAllDevices();
-    };
+        List<Device> deviceList = deviceDAO.getAllDevices();
+        if (logger.isDebugEnabled()) {
+            logger.debug("/device/  - Return:" + deviceList);
+        }
+        return deviceList;
+    }
+    ;
 
     @RequestMapping(value = "/{gateway_id}/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Device> getAllDevicesFromGateway(@PathVariable int gateway_id) {
         if (gateway_id > 0) {
-            return deviceDAO.getAllDevicesFromGateway(gateway_id);
+            List<Device> deviceList = deviceDAO.getAllDevicesFromGateway(gateway_id);
+            if (logger.isDebugEnabled()) {
+                logger.debug("/device/" + gateway_id + "/  - Return:" + deviceList);
+            }
+            return deviceList;
         } else {
             return null;
         }
-    };
+    }
+    ;
 
     @RequestMapping(value = "/{device_id}/sensors/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Sensor> getDeviceSensors(@PathVariable int device_id) {
         if (device_id > 0) {
-            return deviceDAO.getDeviceById(device_id).getSensorList();
+            List<Sensor> sensorList = deviceDAO.getDeviceById(device_id).getSensorList();
+            if (logger.isDebugEnabled()) {
+                logger.debug("/device/" + device_id + "/sensors/ - Return:" + sensorList);
+            }
+            return sensorList;
         } else {
             return null;
         }
-    };
+    }
+    ;
 
     @RequestMapping(value = "/{device_id}/actuators/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Actuator> getDeviceActuators(@PathVariable int device_id) {
         if (device_id > 0) {
-            return deviceDAO.getDeviceById(device_id).getActuatorList();
+            List<Actuator> actuatorList = deviceDAO.getDeviceById(device_id).getActuatorList();
+            if (logger.isDebugEnabled()) {
+                logger.debug("/device/" + device_id + "/actuators/ - Return:" + actuatorList);
+            }
+            return actuatorList;
         } else {
             return null;
         }
-    };
+    }
+    ;
 }
