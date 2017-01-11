@@ -297,4 +297,14 @@
 		</dependency>
 	</dependencies>
 
+	<!-- YodaTime -->
+
+	<dependency>
+		<groupId>joda-time</groupId>
+		<artifactId>joda-time-hibernate</artifactId>
+		<version>1.4</version>
+	</dependency>
+
+
+
 </project>
