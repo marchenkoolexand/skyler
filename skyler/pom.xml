@@ -27,6 +27,7 @@
 		<version.log4j>1.2.17</version.log4j>
 
 		<version.spring>4.3.4.RELEASE</version.spring>
+		<version.spring-security>4.0.4.RELEASE</version.spring-security>
 		<version.hibernate>4.3.5.Final</version.hibernate>
 
 		<version.jstl>1.2</version.jstl>
@@ -170,6 +171,30 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${version.spring}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${version.spring-security}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${version.spring-security}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${version.spring-security}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${version.spring-security}</version>
 		</dependency>
 
 		<!-- JSON -->

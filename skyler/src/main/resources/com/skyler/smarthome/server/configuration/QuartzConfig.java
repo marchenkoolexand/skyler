@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("com.skyler.smarthome.server")
-public class QuartzConfiguration {
+public class QuartzConfig {
 
 
 }

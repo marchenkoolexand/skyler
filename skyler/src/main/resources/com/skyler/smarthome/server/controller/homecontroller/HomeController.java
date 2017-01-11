@@ -39,14 +39,17 @@ public class HomeController {
     @RequestMapping(value = "/test/",method = RequestMethod.GET)
     public String test() {
         addTestData();
+       return "index";
+    };
 
-        return "index";
+    @RequestMapping(value = "/test/exception",method = RequestMethod.GET)
+    public String testException() {
+        throw new IndexOutOfBoundsException("Exception");
     };
 
 
   void addTestData() {
       Session session = sessionFactory.openSession();
-
       List<Sensor> sensorList = new ArrayList();
       Sensor sensor = new Sensor("Sensor 1");
       Sensor sensor1 = new Sensor("Sensor 2");
@@ -58,8 +61,6 @@ public class HomeController {
       sensorList.add(sensor2);
       sensorList.add(sensor3);
       sensorList.add(sensor4);
-      System.out.println("SENSOR LIST " + sensorList);
-
       List <Actuator>actuatorList = new ArrayList();
       Actuator actuator = new Actuator("Actuator 1");
       Actuator actuator1 = new Actuator("Actuator 2");
@@ -71,21 +72,11 @@ public class HomeController {
       actuatorList.add(actuator2);
       actuatorList.add(actuator3);
       actuatorList.add(actuator4);
-      System.out.println("ACTUATOR LIST " + actuatorList);
-
       Device device = new Device("device 1");
       device.addSensorListToDevice(sensorList);
       device.addActuatorListToDevice(actuatorList);
-      System.out.println("DEVICE " + device);
-
       Gateway gateway = new Gateway("gwname","192.168.1.1");
       gateway.addDeviceToGateway(device);
-
-      System.out.println("GATEWAY  " + gateway);
-
-
-      System.out.println("");
-
       gatewayDAO.createGateway(gateway);
       userDaoImpl.createNewUser(new User( "firstName",  "lastName",  "email",  "recoveryEmail",  "password","phoneNumber"));
 

@@ -1,8 +1,5 @@
 package com.skyler.smarthome.server.model;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,7 +21,6 @@ public class Gateway implements Serializable {
 	@Column(name = "s_gateway_ip")
 	private String gwIp;
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@OnDelete(action= OnDeleteAction.CASCADE)
 	@JoinTable(name = "s_joined_gateway_devices", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_device_fk"))
 	private List<Device> deviceList = new ArrayList<>();
 

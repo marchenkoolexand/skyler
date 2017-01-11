@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("/internal")
-public class GatewayInternalPushController {
+public class GatewayInternalReceiveController {
 
-	final static Logger logger = Logger.getLogger(GatewayInternalPostController.class);
+	final static Logger logger = Logger.getLogger(GatewayInternalSendController.class);
 	
 	@Autowired(required=true)
 	GatewayDao gatewayDAO;
@@ -34,10 +34,15 @@ public class GatewayInternalPushController {
 	@Autowired(required=true)
 	DeviceDao deviceDao;
 
+	//Get Main Server Info
+	@RequestMapping(value = "/info/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody boolean serverInfo() {
+		return true;
+	}
+
 	//Register new GateWay
 	@RequestMapping(value = "/gateway/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean newGateway() {
-		//gatewayDAO.createGateway();
 		return true;
 	}
 
@@ -59,41 +64,41 @@ public class GatewayInternalPushController {
 	}
 
 	//Register sensor event
-	@RequestMapping(value = "/gateway/{gateway_id}/sensor/{sensor_id}/events/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/gateway/{gateway_id}/sensors/{sensor_id}/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerSensorEvent(@PathVariable int gateway_id, @RequestParam int sensor_id) {
 		//TODO
 		return true;
 	}
 
 	//Register actuator event
-	@RequestMapping(value = "/gateway/{gateway_id}/actuator/{actuator_id}/events/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/gateway/{gateway_id}/actuators/{actuator_id}/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerActuatorEvent(@PathVariable int gateway_id, @RequestParam int actuator_id) {
 		//TODO
 		return true;
 	}
 
 	//Register new sensor
-	@RequestMapping(value = "/gateway/{gateway_id}/sensor/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/gateway/{gateway_id}/sensors/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerNewSensor(@PathVariable int gateway_id) {
 		//moduleDao.addModuleToDevice(gateway_id,);
 		return true;
 	}
 	//Register new actuator
-	@RequestMapping(value = "/gateway/{gateway_id}/actuator/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/gateway/{gateway_id}/actuators/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerNewActuator(@PathVariable int gateway_id) {
 		//TODO
 		return true;
 	}
 
 	//Update sensor
-	@RequestMapping(value = "/update/sensor/{sensor_id}", method = RequestMethod.PATCH)
+	@RequestMapping(value = "/update/sensors/{sensor_id}", method = RequestMethod.PATCH)
 	public @ResponseBody boolean updateSensor(@PathVariable int sensor_id) {
 		//TODO
 		return true;
 	}
 
 	//Update actuator
-	@RequestMapping(value = "/update/actuator/{actuator_id}", method = RequestMethod.PATCH)
+	@RequestMapping(value = "/update/actuators/{actuator_id}", method = RequestMethod.PATCH)
 	public @ResponseBody boolean updateActuator(@PathVariable int sensor_id) {
 		//TODO
 		return true;

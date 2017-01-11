@@ -10,9 +10,9 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URL;
 import java.util.List;
 
-public class GatewayInternalPostController {
+public class GatewayInternalSendController {
 
-	final static Logger logger = Logger.getLogger(GatewayInternalPostController.class);
+	final static Logger logger = Logger.getLogger(GatewayInternalSendController.class);
 
 	@Autowired(required=true)
 	GatewayDao gatewayDAO;
