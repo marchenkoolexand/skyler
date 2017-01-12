@@ -2,6 +2,8 @@ package com.skyler.smarthome.server.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "s_users")
@@ -18,14 +20,19 @@ public class User implements Serializable {
 	private String firstName;
 	@Column(name = "s_last_name")
 	private String lastName;
-	@Column(name = "s_email")
+	@Column(name = "s_email", unique = true,nullable = false, length = 45)
 	private String email;
-	@Column(name = "s_recovery_email")
+	@Column(name = "s_recovery_email",nullable = false, length = 45)
 	private String recoveryEmail;
-	@Column(name = "s_password")
+	@Column(name = "s_password",nullable = false, length = 60)
 	private String password;
 	@Column(name = "s_phone_number")
 	private String phoneNumber;
+	@Column(name = "s_enabled")
+	private boolean enabled;
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "s_joined_user_roles", joinColumns = @JoinColumn(name = "s_user_fk"), inverseJoinColumns = @JoinColumn(name = "s_role_fk"))
+	private Set<UserRole> userRole = new HashSet<UserRole>(0);
 
 	public User() {
 	}
@@ -38,14 +45,16 @@ public class User implements Serializable {
 	}
 
 	public User(String firstName, String lastName, String email, String recoveryEmail, String password,
-			String phoneNumber) {
+			String phoneNumber,boolean enabled) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.recoveryEmail = recoveryEmail;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
+		this.enabled =enabled;
 	}
+
 
 	public int getId() {
 		return id;
@@ -103,68 +112,57 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", recoveryEmail=" + recoveryEmail + ", password=" + password + ", phoneNumber=" + phoneNumber + "]";
+				+ ", recoveryEmail=" + recoveryEmail + "[password]"+ ", phoneNumber=" + phoneNumber + "]";
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		if (id != user.id) return false;
+		if (enabled != user.enabled) return false;
+		if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+		if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+		if (email != null ? !email.equals(user.email) : user.email != null) return false;
+		if (recoveryEmail != null ? !recoveryEmail.equals(user.recoveryEmail) : user.recoveryEmail != null)
+			return false;
+		if (password != null ? !password.equals(user.password) : user.password != null) return false;
+		if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
+		return userRole != null ? userRole.equals(user.userRole) : user.userRole == null;
+
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
-		result = prime * result + ((recoveryEmail == null) ? 0 : recoveryEmail.hashCode());
+		int result = id;
+		result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+		result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+		result = 31 * result + (email != null ? email.hashCode() : 0);
+		result = 31 * result + (recoveryEmail != null ? recoveryEmail.hashCode() : 0);
+		result = 31 * result + (password != null ? password.hashCode() : 0);
+		result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+		result = 31 * result + (enabled ? 1 : 0);
+		result = 31 * result + (userRole != null ? userRole.hashCode() : 0);
 		return result;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (phoneNumber == null) {
-			if (other.phoneNumber != null)
-				return false;
-		} else if (!phoneNumber.equals(other.phoneNumber))
-			return false;
-		if (recoveryEmail == null) {
-			if (other.recoveryEmail != null)
-				return false;
-		} else if (!recoveryEmail.equals(other.recoveryEmail))
-			return false;
-		return true;
-	}
-
 }

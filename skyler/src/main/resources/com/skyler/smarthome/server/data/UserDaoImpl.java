@@ -81,7 +81,6 @@ public class UserDaoImpl implements UserDao {
 		} catch (HibernateException e) {
 			return null;
 		} finally {
-
 		}
 	}
 
@@ -94,12 +93,10 @@ public class UserDaoImpl implements UserDao {
 			user.setEmail("");
 			user.setRecoveryEmail("");
 			user.setPhoneNumber("");
-			
 			return user;
 		} catch (HibernateException e) {
 			return null;
 		} finally {
-
 		}
 	}
 
@@ -137,4 +134,12 @@ public class UserDaoImpl implements UserDao {
 			session.close();
 		}
 	}
+
+    public User getUserByEmail(String username) {
+       User user = (User)sessionFactory.openSession()
+                .createQuery("from User where s_email=?")
+                .setParameter(0, username)
+                .uniqueResult();
+            return user;
+    }
 }

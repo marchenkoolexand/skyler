@@ -1,10 +1,9 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.List;
-
+import com.skyler.smarthome.server.model.User;
 import org.springframework.stereotype.Repository;
 
-import com.skyler.smarthome.server.model.User;
+import java.util.List;
 
 @Repository
 public interface UserDao {
@@ -23,4 +22,5 @@ public interface UserDao {
 
 	public boolean deleteUserById(int id);
 
+	public User getUserByEmail(String username);
 }

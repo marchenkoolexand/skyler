@@ -11,7 +11,7 @@ public class Device implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue
     private int id;
     @Column(name = "s_device_name")
     private String deviceName;
