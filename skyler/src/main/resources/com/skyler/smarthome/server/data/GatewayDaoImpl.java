@@ -89,7 +89,7 @@ public class GatewayDaoImpl implements GatewayDao {
 		try {
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
 			gateway = GatewayUtil.updateGatewayByField(gateway, gatewayField, newParam);
-			session.merge(gateway);
+			session.saveOrUpdate(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
@@ -106,7 +106,7 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.merge(gateway);
+			session.saveOrUpdate(gateway);
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;

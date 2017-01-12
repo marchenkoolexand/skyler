@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
-public class MainExceptionController {
+public class MainUiExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleAllException(Exception ex) {

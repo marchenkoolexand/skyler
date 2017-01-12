@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			User user = (User) session.get(User.class, userId);
 			user = UserUtil.updateUserByField(user, userField, newParam);
-			session.merge(user);
+			session.saveOrUpdate(user);
 			return true;
 		} catch (HibernateException e) {
 			return false;

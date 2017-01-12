@@ -36,13 +36,16 @@ public class GatewayInternalReceiveController {
 
 	//Get Main Server Info
 	@RequestMapping(value = "/info/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody boolean serverInfo() {
+	public @ResponseBody boolean serverInfo()
+	{
+		//TODO
 		return true;
 	}
 
-	//Register new GateWay
+	//Register new Gateway (or initialize after system restart)
 	@RequestMapping(value = "/gateway/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean newGateway() {
+		//TODO
 		return true;
 	}
 
@@ -63,15 +66,29 @@ public class GatewayInternalReceiveController {
 		}
 	}
 
-	//Register sensor event
+	//Register system event happened with some of the Sensors (new added, communication lost, missing, poor communication, etc)
 	@RequestMapping(value = "/gateway/{gateway_id}/sensors/{sensor_id}/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody boolean registerSensorSystemEvent(@PathVariable int gateway_id, @RequestParam int sensor_id) {
+		//TODO
+		return true;
+	}
+
+	//Register system event happened with some of the Actuators (new added, communication lost, missing, poor communication, etc)
+	@RequestMapping(value = "/gateway/{gateway_id}/actuators/{actuator_id}/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody boolean registerActuatorSystemEvent(@PathVariable int gateway_id, @RequestParam int actuator_id) {
+		//TODO
+		return true;
+	}
+
+	//Register event happened on Sensor
+	@RequestMapping(value = "/gateway/{gateway_id}/sensors/{sensor_id}/event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerSensorEvent(@PathVariable int gateway_id, @RequestParam int sensor_id) {
 		//TODO
 		return true;
 	}
 
-	//Register actuator event
-	@RequestMapping(value = "/gateway/{gateway_id}/actuators/{actuator_id}/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	//Register event happened on Actuator
+	@RequestMapping(value = "/gateway/{gateway_id}/actuators/{actuator_id}/event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerActuatorEvent(@PathVariable int gateway_id, @RequestParam int actuator_id) {
 		//TODO
 		return true;
@@ -80,7 +97,7 @@ public class GatewayInternalReceiveController {
 	//Register new sensor
 	@RequestMapping(value = "/gateway/{gateway_id}/sensors/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerNewSensor(@PathVariable int gateway_id) {
-		//moduleDao.addModuleToDevice(gateway_id,);
+		//TODO
 		return true;
 	}
 	//Register new actuator

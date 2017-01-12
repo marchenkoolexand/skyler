@@ -1,9 +1,7 @@
 package com.skyler.smarthome.server.model;
 
-public abstract class Event {
+public class ActuatorEvent extends Event{
 
-    private int id;
 
     //TODO
-
 }
