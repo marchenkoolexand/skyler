@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,11 +20,14 @@ public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public boolean createNewUser(User user) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		try {
 			session.persist(user);
 			tx.commit();
@@ -135,11 +139,24 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-    public User getUserByEmail(String username) {
+    public User getUserByEmail(String email) {
        User user = (User)sessionFactory.openSession()
                 .createQuery("from User where s_email=?")
-                .setParameter(0, username)
+                .setParameter(0, email)
                 .uniqueResult();
             return user;
     }
+
+	public boolean isUserEmailUnique(String email){
+	    boolean isEmailUnique;
+		Session session = sessionFactory.openSession();
+		List<User> userList = session.createQuery("from User where s_email=?")
+                .setParameter(0, email).list();
+        if (userList.size()>0){
+            isEmailUnique= false;
+        } else {
+            isEmailUnique = true;
+        }
+		return isEmailUnique;
+	}
 }

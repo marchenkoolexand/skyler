@@ -34,9 +34,7 @@ public class Actuator extends Module implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Actuator actuator = (Actuator) o;
-
         return actuatorName != null ? actuatorName.equals(actuator.actuatorName) : actuator.actuatorName == null;
 
     }

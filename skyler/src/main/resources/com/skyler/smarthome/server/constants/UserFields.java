@@ -20,5 +20,5 @@ public interface UserFields {
 	public static final String EMAIL = "email";
 	public static final String RECOVERY_EMAIL = "recoveryemail";
 	public static final String PHONE_NUMBER = "phonenumber";
-
+	public static final String PASSWORD = "password" ;
 }

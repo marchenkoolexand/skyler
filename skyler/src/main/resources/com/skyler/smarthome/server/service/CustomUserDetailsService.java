@@ -25,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Transactional(readOnly=true)
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        com.skyler.smarthome.server.model.User user = userDao.getUserByEmail(username);
+    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+        com.skyler.smarthome.server.model.User user = userDao.getUserByEmail(email);
         List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
         return buildUserForAuthentication(user, authorities);
     }
@@ -36,11 +36,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> setAuthoritys = new HashSet<>();
         for (UserRole userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+            setAuthoritys.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
-        List<GrantedAuthority> result = new ArrayList<GrantedAuthority>(setAuths);
+        List<GrantedAuthority> result = new ArrayList<>(setAuthoritys);
         return result;
     }
 }

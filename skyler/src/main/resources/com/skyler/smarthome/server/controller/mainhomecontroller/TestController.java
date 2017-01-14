@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.controller.homecontroller;
+package com.skyler.smarthome.server.controller.mainhomecontroller;
 
 import com.skyler.smarthome.server.data.GatewayDao;
 import com.skyler.smarthome.server.data.ModuleDao;
@@ -31,18 +31,13 @@ public class TestController {
     @RequestMapping(value = "/test/",method = RequestMethod.GET)
     public String test() {
         addTestData();
-        return "index";
+        return "redirect:index";
     };
 
     @RequestMapping(value = "/test/exception",method = RequestMethod.GET)
     public String testException() {
         throw new IndexOutOfBoundsException("Exception");
     };
-
-
-
-
-
 
     void addTestData() {
         Session session = sessionFactory.openSession();
@@ -79,8 +74,8 @@ public class TestController {
         User user2 = new User( "Gateway",  "Gateway",  "gateway@i.ua",  "gatewayrecovery@i.ua",  "gateway","+380668888888",true);
         Set<UserRole> userRoleSet = new HashSet<UserRole>();
 
-        userRoleSet.add(new UserRole("ADMIN"));
-        userRoleSet.add(new UserRole("GATEWAY"));
+        userRoleSet.add(new UserRole("ROLE_ADMIN"));
+        userRoleSet.add(new UserRole("ROLE_GATEWAY"));
         user.setUserRole(userRoleSet);
         user2.setUserRole(userRoleSet);
         userDaoImpl.createNewUser(user);

@@ -23,4 +23,6 @@ public interface UserDao {
 	public boolean deleteUserById(int id);
 
 	public User getUserByEmail(String username);
+
+	public boolean isUserEmailUnique(String email);
 }

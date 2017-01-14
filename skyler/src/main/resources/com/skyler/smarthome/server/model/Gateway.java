@@ -16,10 +16,14 @@ public class Gateway implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue
 	private int id;
+	@Column(name = "s_unique_id")
+	private String uniqueId;
 	@Column(name = "s_gateway_name")
 	private String gwName;
 	@Column(name = "s_gateway_ip")
 	private String gwIp;
+    @Column(name = "s_firmware_version")
+    private String firmwareVersion;
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "s_joined_gateway_devices", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_device_fk"))
 	private List<Device> deviceList = new ArrayList<>();
@@ -49,7 +53,23 @@ public class Gateway implements Serializable {
 		return gwName;
 	}
 
-	public void setGwName(String gwName) {
+	public String getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
+    }
+
+    public void setFirmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
+    }
+
+    public void setGwName(String gwName) {
 		this.gwName = gwName;
 	}
 

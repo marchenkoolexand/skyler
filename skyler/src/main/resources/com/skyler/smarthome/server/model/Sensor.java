@@ -33,11 +33,8 @@ public class Sensor  extends Module implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Sensor sensor = (Sensor) o;
-
         return sensorName != null ? sensorName.equals(sensor.sensorName) : sensor.sensorName == null;
-
     }
 
     @Override

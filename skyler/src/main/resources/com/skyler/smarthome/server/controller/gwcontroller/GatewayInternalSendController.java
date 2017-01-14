@@ -17,35 +17,41 @@ public class GatewayInternalSendController {
 	@Autowired(required=true)
 	GatewayDao gatewayDAO;
 
-	public HttpStatus checkGatewayConnection(int gatewayId, URL url) {
+	//Get SmartHome Gateway Info
+	//Path :<host>/info
+	public void getGWInfo(){
+		//TODO
+	}
+
+	//Path :<host>/check
+	public HttpStatus checkGatewayConnection(URL url) {
 		RestTemplate restTemplate = new RestTemplate();
 		//TODO
 		return null;
 	}
 
-	public HttpStatus postCommandToSensor(int gatewayId, URL url) {
+	//Get current timestamp, 0 if not set yet by SmartHome Main Server
+	//Path :<host>/timestamp
+	public HttpStatus timestamp(URL url) {
 		RestTemplate restTemplate = new RestTemplate();
 		//TODO
 		return null;
 	}
 
-	public HttpStatus postCommandToActuator(int gatewayId, URL url) {
+	//Path :<host>/actuators
+	public HttpStatus getActuatorListFromGateway(URL url) {
 		RestTemplate restTemplate = new RestTemplate();
 		//TODO
 		return null;
 	}
 
-	public HttpStatus getSensorListFromGateway(int gatewayId, URL url) {
+	//Path :<host>/sensors
+	public HttpStatus getSensorListFromGateway(URL url) {
 		RestTemplate restTemplate = new RestTemplate();
 		//TODO
 		return null;
 	}
 
-	public HttpStatus getActuatorListFromGateway(int gatewayId, URL url) {
-		RestTemplate restTemplate = new RestTemplate();
-		//TODO
-		return null;
-	}
 
 	public List<Gateway> getGatewayList(URL url) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -53,5 +59,15 @@ public class GatewayInternalSendController {
 		return null;
 	}
 
+	public HttpStatus postCommandToSensor(URL url) {
+		RestTemplate restTemplate = new RestTemplate();
+		//TODO
+		return null;
+	}
 
+	public HttpStatus postCommandToActuator(URL url) {
+		RestTemplate restTemplate = new RestTemplate();
+		//TODO
+		return null;
+	}
 }

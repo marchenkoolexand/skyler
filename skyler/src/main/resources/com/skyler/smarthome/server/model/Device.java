@@ -22,11 +22,6 @@ public class Device implements Serializable {
     @JoinTable(name = "s_joined_device_actuators", joinColumns = @JoinColumn(name = "s_gateway_fk"), inverseJoinColumns = @JoinColumn(name = "s_actuator_fk"))
     private List<Actuator> actuatorList = new ArrayList<>();
 
-    // Needed for bidirectional mapping  //TODO
-    // @ManyToOne(optional = false)
-    // @JoinColumn(name = "id")
-    // private Gateway gateway;
-
     public Device() {
     }
 

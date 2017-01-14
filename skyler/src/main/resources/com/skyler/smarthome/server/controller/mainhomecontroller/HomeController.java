@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.controller.homecontroller;
+package com.skyler.smarthome.server.controller.mainhomecontroller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -11,13 +11,14 @@ public class HomeController {
 
     final static Logger logger = Logger.getLogger(HomeController.class);
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/" ,method = RequestMethod.GET)
+    public String start() {
+        return "index";
+    };
+
+    @RequestMapping(value = "/home" ,method = RequestMethod.GET)
     public String home() {
         return "index";
     };
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
 }
