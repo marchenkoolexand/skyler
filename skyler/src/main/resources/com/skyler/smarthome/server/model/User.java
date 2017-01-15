@@ -55,7 +55,6 @@ public class User implements Serializable {
 		this.enabled =enabled;
 	}
 
-
 	public int getId() {
 		return id;
 	}
@@ -112,14 +111,6 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Set<UserRole> getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(Set<UserRole> userRole) {
-		this.userRole = userRole;
-	}
-
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -128,10 +119,12 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", recoveryEmail=" + recoveryEmail + "[password]"+ ", phoneNumber=" + phoneNumber + "]";
+	public Set<UserRole> getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRole = userRole;
 	}
 
 	@Override
@@ -164,5 +157,20 @@ public class User implements Serializable {
 		result = 31 * result + (enabled ? 1 : 0);
 		result = 31 * result + (userRole != null ? userRole.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", recoveryEmail='" + recoveryEmail + '\'' +
+				", password= [ENCODED]" +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", enabled=" + enabled +
+				", userRole=" + userRole +
+				'}';
 	}
 }

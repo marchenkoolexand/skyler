@@ -21,6 +21,9 @@ public class PersistentLogin implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date s_last_used;
 
+    public PersistentLogin() {
+    }
+
     public String getSeries() {
         return series;
     }
@@ -51,5 +54,36 @@ public class PersistentLogin implements Serializable {
 
     public void setS_last_used(Date s_last_used) {
         this.s_last_used = s_last_used;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersistentLogin that = (PersistentLogin) o;
+        if (series != null ? !series.equals(that.series) : that.series != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (token != null ? !token.equals(that.token) : that.token != null) return false;
+        return s_last_used != null ? s_last_used.equals(that.s_last_used) : that.s_last_used == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = series != null ? series.hashCode() : 0;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (token != null ? token.hashCode() : 0);
+        result = 31 * result + (s_last_used != null ? s_last_used.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PersistentLogin{" +
+                "series='" + series + '\'' +
+                ", email='" + email + '\'' +
+                ", token='" + token + '\'' +
+                ", s_last_used=" + s_last_used +
+                '}';
     }
 }

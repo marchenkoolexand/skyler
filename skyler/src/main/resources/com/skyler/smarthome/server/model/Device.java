@@ -49,16 +49,8 @@ public class Device implements Serializable {
         return id;
     }
 
-    public void setDeviceId(int id) {
+    public void setId(int id) {
         this.id = id;
-    }
-
-    public List<Sensor> getSensorList() {
-        return sensorList;
-    }
-
-    public List<Actuator> getActuatorList() {
-        return actuatorList;
     }
 
     public String getDeviceName() {
@@ -69,13 +61,27 @@ public class Device implements Serializable {
         this.deviceName = deviceName;
     }
 
+    public List<Sensor> getSensorList() {
+        return sensorList;
+    }
+
+    public void setSensorList(List<Sensor> sensorList) {
+        this.sensorList = sensorList;
+    }
+
+    public List<Actuator> getActuatorList() {
+        return actuatorList;
+    }
+
+    public void setActuatorList(List<Actuator> actuatorList) {
+        this.actuatorList = actuatorList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Device device = (Device) o;
-
         if (id != device.id) return false;
         if (deviceName != null ? !deviceName.equals(device.deviceName) : device.deviceName != null) return false;
         if (sensorList != null ? !sensorList.equals(device.sensorList) : device.sensorList != null) return false;

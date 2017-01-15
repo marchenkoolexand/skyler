@@ -28,6 +28,7 @@ public class UserRole {
     public void setUserRoleId(Integer userRoleId) {
         this.roleId = userRoleId;
     }
+
     public String getRole() {
         return this.role;
     }
@@ -50,5 +51,13 @@ public class UserRole {
         int result = roleId;
         result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "roleId=" + roleId +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

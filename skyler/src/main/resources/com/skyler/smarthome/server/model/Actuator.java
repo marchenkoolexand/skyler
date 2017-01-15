@@ -1,9 +1,8 @@
 package com.skyler.smarthome.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.skyler.smarthome.server.model.gateway.ActuatorInfo;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 
@@ -14,12 +13,13 @@ public class Actuator extends Module implements Serializable {
 
     @Column(name = "s_actuator_name")
     private String actuatorName;
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private ActuatorInfo actuatorInfo;
 
-    public Actuator() {
-    }
-
-    public Actuator(String actuatorName) {
+    public Actuator(String actuatorName, ActuatorInfo actuatorInfo) {
         this.actuatorName = actuatorName;
+        this.actuatorInfo = actuatorInfo;
     }
 
     public String getActuatorName() {
@@ -30,17 +30,37 @@ public class Actuator extends Module implements Serializable {
         this.actuatorName = actuatorName;
     }
 
+    public ActuatorInfo getActuatorInfo() {
+        return actuatorInfo;
+    }
+
+    public void setActuatorInfo(ActuatorInfo actuatorInfo) {
+        this.actuatorInfo = actuatorInfo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Actuator actuator = (Actuator) o;
-        return actuatorName != null ? actuatorName.equals(actuator.actuatorName) : actuator.actuatorName == null;
+        if (actuatorName != null ? !actuatorName.equals(actuator.actuatorName) : actuator.actuatorName != null)
+            return false;
+        return actuatorInfo != null ? actuatorInfo.equals(actuator.actuatorInfo) : actuator.actuatorInfo == null;
 
     }
 
     @Override
     public int hashCode() {
-        return actuatorName != null ? actuatorName.hashCode() : 0;
+        int result = actuatorName != null ? actuatorName.hashCode() : 0;
+        result = 31 * result + (actuatorInfo != null ? actuatorInfo.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Actuator{" +
+                "actuatorName='" + actuatorName + '\'' +
+                ", actuatorInfo=" + actuatorInfo +
+                '}';
     }
 }
