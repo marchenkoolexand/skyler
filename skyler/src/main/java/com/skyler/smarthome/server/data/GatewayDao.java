@@ -1,10 +1,9 @@
 package com.skyler.smarthome.server.data;
 
-import java.util.List;
-
+import com.skyler.smarthome.server.model.Gateway;
 import org.springframework.stereotype.Repository;
 
-import com.skyler.smarthome.server.model.Gateway;
+import java.util.List;
 
 @Repository
 public interface GatewayDao {

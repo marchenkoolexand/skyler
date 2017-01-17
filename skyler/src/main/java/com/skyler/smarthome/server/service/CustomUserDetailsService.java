@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return buildUserForAuthentication(user, authorities);
     }
 
-    private User buildUserForAuthentication(com.skyler.smarthome.server.model.User user,List<GrantedAuthority> authorities) {
+    private User buildUserForAuthentication(com.skyler.smarthome.server.model.User user, List<GrantedAuthority> authorities) {
         return new User(user.getEmail(), user.getPassword(),user.isEnabled(), true, true, true, authorities);
     }
 
