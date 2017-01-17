@@ -1,11 +1,13 @@
 package com.skyler.smarthome.server.model.gateway;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.Arrays;
 
+@Entity
+@Table(name = "s_value_obj")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ValueObj {
 
     @Id

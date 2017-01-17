@@ -1,9 +1,12 @@
 package com.skyler.smarthome.server.model.gateway;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "s_gateway_info")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GatewayInfo {
 
     @Id

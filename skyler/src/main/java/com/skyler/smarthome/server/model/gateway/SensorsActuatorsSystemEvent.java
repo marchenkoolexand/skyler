@@ -1,10 +1,13 @@
 package com.skyler.smarthome.server.model.gateway;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "s_sa_system_event")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SensorsActuatorsSystemEvent {
 
     @Id

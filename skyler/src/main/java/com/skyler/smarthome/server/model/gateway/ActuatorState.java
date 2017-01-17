@@ -1,10 +1,13 @@
 package com.skyler.smarthome.server.model.gateway;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Arrays;
 
 @Entity
 @Table(name="s_actuator_state")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ActuatorState {
 
     @Id

@@ -5,6 +5,8 @@ import com.skyler.smarthome.server.data.GatewayDao;
 import com.skyler.smarthome.server.data.ModuleDao;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Module;
+import com.skyler.smarthome.server.model.gateway.GatewayInfo;
+import com.skyler.smarthome.server.model.gateway.MainServerInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class GatewayInternalReceiveController {
 
 	final static Logger logger = Logger.getLogger(GatewayInternalSendController.class);
-	
+
 	@Autowired(required=true)
 	GatewayDao gatewayDAO;
 	@Autowired(required=true)
@@ -36,23 +38,18 @@ public class GatewayInternalReceiveController {
 
 	//Get Main Server Info
 	@RequestMapping(value = "/info/", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody boolean serverInfo()
+	public @ResponseBody MainServerInfo serverInfo()
 	{
-		//TODO
-		return true;
+		MainServerInfo mainServerInfo = new MainServerInfo();
+        //TODO
+        return mainServerInfo;
 	}
 
-	@RequestMapping(value = "/gateways/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody boolean allGateway() {
-		//TODO
-		return true;
-	}
-
-	//Register GateWay
+    //Register new Gateway (or initialize after system restart)
 	@RequestMapping(value = "/gateways/{unique_gateway_id}", method = RequestMethod.POST)
-	public void newGateway(@PathVariable int unique_gateway_id) {
+	public void newGateway(@PathVariable int unique_gateway_id,@RequestBody GatewayInfo gatewayInfo) {
 		if(unique_gateway_id > 0) {
-			boolean result = gatewayDAO.deleteGateway(unique_gateway_id);
+			//TODO
 		}
 	}
 
