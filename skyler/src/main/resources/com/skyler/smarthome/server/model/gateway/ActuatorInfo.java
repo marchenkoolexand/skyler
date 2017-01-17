@@ -21,7 +21,7 @@ public class ActuatorInfo {
     @Column(name = "s_hardware_spec", nullable = false)
     @Lob
     private byte[] hardwareSpec;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private SensorActuatorConfiguration configuration;
 

@@ -20,7 +20,7 @@ public class Gateway implements Serializable {
 	private int id;
 	@Column(name = "s_gateway_name")
 	private String gwName;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	private GatewayInfo gatewayInfo;
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })

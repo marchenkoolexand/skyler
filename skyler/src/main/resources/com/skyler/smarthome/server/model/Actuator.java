@@ -13,7 +13,7 @@ public class Actuator extends Module implements Serializable {
 
     @Column(name = "s_actuator_name")
     private String actuatorName;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private ActuatorInfo actuatorInfo;
 

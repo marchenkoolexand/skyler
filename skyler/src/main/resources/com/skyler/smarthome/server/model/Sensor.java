@@ -12,7 +12,7 @@ public class Sensor  extends Module implements Serializable {
 
     @Column(name = "s_sensor_name")
     private String sensorName;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private SensorInfo sensorInfo;
 
