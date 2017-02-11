@@ -101,6 +101,7 @@ public class UserDaoImpl implements UserDao {
 		} catch (HibernateException e) {
 			return null;
 		} finally {
+			session.close();
 		}
 	}
 
@@ -127,6 +128,7 @@ public class UserDaoImpl implements UserDao {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+            tx.setTimeout(10);
 			User loadedUser = (User) session.get(User.class, id);
 			session.delete(loadedUser);
 			tx.commit();
@@ -141,7 +143,7 @@ public class UserDaoImpl implements UserDao {
 
     public User getUserByEmail(String email) {
        User user = (User)sessionFactory.openSession()
-                .createQuery("from User where s_email=?")
+                .createQuery("from User where s_email = ?")
                 .setParameter(0, email)
                 .uniqueResult();
             return user;
@@ -157,6 +159,7 @@ public class UserDaoImpl implements UserDao {
         } else {
             isEmailUnique = true;
         }
+        session.close();
 		return isEmailUnique;
 	}
 }

@@ -24,10 +24,13 @@ public class ModuleDaoImpl implements ModuleDao {
 	public List<Module> getAllModules() {
 		Session session = sessionFactory.openSession();
 		try {
+			session.getTransaction().setTimeout(10);
+			session.getTransaction().begin();
 			List<Module> moduleList = session.createQuery("from com.skyler.smarthome.server.model.Module").list();
+			session.getTransaction().commit();
 			return moduleList;
 		} catch (HibernateException e) {
-
+			session.getTransaction().rollback();
 		} finally {
 			session.close();
 		}
@@ -38,10 +41,13 @@ public class ModuleDaoImpl implements ModuleDao {
 	public List<Sensor> getAllSensor() {
 		Session session = sessionFactory.openSession();
 		try {
+			session.getTransaction().setTimeout(10);
+			session.getTransaction().begin();
 			List<Sensor> sensorList = session.createQuery("from Sensor").list();
+			session.getTransaction().commit();
 			return sensorList;
 		} catch (HibernateException e) {
-
+			session.getTransaction().rollback();
 		} finally {
 			session.close();
 		}
@@ -52,10 +58,13 @@ public class ModuleDaoImpl implements ModuleDao {
 	public List<Actuator> getAllActuator() {
 		Session session = sessionFactory.openSession();
 		try {
+			session.getTransaction().setTimeout(10);
+			session.getTransaction().begin();
 			List<Actuator> actuatorList = session.createQuery("from Actuator").list();
+			session.getTransaction().commit();
 			return actuatorList;
 		} catch (HibernateException e) {
-
+			session.getTransaction().rollback();
 		} finally {
 			session.close();
 		}
@@ -81,6 +90,8 @@ public class ModuleDaoImpl implements ModuleDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
 			List<Device> deviceList = gateway.getDeviceList();
 			Iterator<Device> deviceIterator = deviceList.iterator();
@@ -91,11 +102,11 @@ public class ModuleDaoImpl implements ModuleDao {
 				}
 			}
 			session.save(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return false;
@@ -106,6 +117,8 @@ public class ModuleDaoImpl implements ModuleDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
 			List<Device> deviceList = gateway.getDeviceList();
 			Iterator<Device> deviceIterator = deviceList.iterator();
@@ -116,11 +129,11 @@ public class ModuleDaoImpl implements ModuleDao {
 				}
 			}
 			session.save(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return false;
@@ -131,6 +144,8 @@ public class ModuleDaoImpl implements ModuleDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
 			List<Device> deviceList = gateway.getDeviceList();
 			Iterator<Device> deviceIterator = deviceList.iterator();
@@ -141,11 +156,11 @@ public class ModuleDaoImpl implements ModuleDao {
 				}
 			}
 			session.save(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return false;

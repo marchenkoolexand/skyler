@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/home").hasRole("ADMIN").anyRequest().authenticated().and()
+        http.authorizeRequests().antMatchers("/internal/**").access("hasRole('ROLE_ANONYMOUS') or hasRole('ROLE_ADMIN') and hasIpAddress('0:0:0:0:0:0:0:1') or hasIpAddress('192.168.0.1/255') or hasIpAddress('127.0.0.1/255')")
+                .antMatchers("/login").permitAll().antMatchers("/home").hasRole("ADMIN").anyRequest().authenticated().and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login?error")
                 .defaultSuccessUrl("/home")

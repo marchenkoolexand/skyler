@@ -25,10 +25,13 @@ public class DeviceDaoImpl implements  DeviceDao{
     public List<Device> getAllDevices() {
         Session session = sessionFactory.openSession();
         try {
+            session.getTransaction().setTimeout(10);
+            session.getTransaction().begin();
             List<Device> deviceList = session.createQuery("from Device").list();
+            session.getTransaction().commit();
             return deviceList;
         } catch (HibernateException e) {
-
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }
@@ -38,10 +41,13 @@ public class DeviceDaoImpl implements  DeviceDao{
     public List<Device> getAllDevicesFromGateway(int gwId){
         Session session = sessionFactory.openSession();
         try {
+            session.getTransaction().setTimeout(10);
+            session.getTransaction().begin();
             Gateway gateway = (Gateway) session.get(Gateway.class, gwId);
+            session.getTransaction().commit();
             return gateway.getDeviceList();
         } catch (HibernateException e) {
-
+            session.getTransaction().rollback();
         } finally {
             session.close();
         }

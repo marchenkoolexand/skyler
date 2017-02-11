@@ -1,4 +1,4 @@
-package com.skyler.smarthome.server.data;
+package com.skyler.smarthome.server.data.hibernate;
 
 import com.skyler.smarthome.server.model.PersistentLogin;
 import org.apache.log4j.Logger;
@@ -58,6 +58,7 @@ public class HibernatePersistentTokenRepository implements PersistentTokenReposi
         if (persistentLogin != null) {
             Session session = sessionFactory.openSession();
             session.delete(persistentLogin);
+            session.close();
         }
     }
 
@@ -68,5 +69,6 @@ public class HibernatePersistentTokenRepository implements PersistentTokenReposi
         persistentLogin.setS_last_used(lastUsed);
         Session session = sessionFactory.openSession();
         session.update(persistentLogin);
+        session.close();
     }
 }

@@ -26,10 +26,13 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		List<Gateway> gatewayList = null;
 		try {
+			session.getTransaction().setTimeout(10);
+			session.getTransaction().begin();
 			gatewayList = session.createQuery("from com.skyler.smarthome.server.model.Gateway").list();
+			session.getTransaction().commit();
 			return gatewayList;
 		} catch (HibernateException e) {
-				System.out.println(e);
+			session.getTransaction().rollback();
 		} finally {
 			session.close();
 		}
@@ -40,10 +43,15 @@ public class GatewayDaoImpl implements GatewayDao {
 	public Gateway getGatewayById(int id) {
 		Session session = sessionFactory.openSession();
 		try {
+			session.getTransaction().setTimeout(10);
+			session.getTransaction().begin();
 			Gateway gateWay = (Gateway) session.get(Gateway.class, id);
+			session.getTransaction().commit();
 			return gateWay;
 		} catch (HibernateException e) {
-
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
 		}
 		return null;
 	}
@@ -53,7 +61,10 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			session.persist(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
@@ -70,13 +81,15 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			Gateway loadedGateway = (Gateway) session.load(Gateway.class, id);
 			session.delete(loadedGateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return true;
@@ -87,14 +100,16 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			Gateway gateway = (Gateway) session.get(Gateway.class, gatewayId);
 			gateway = GatewayUtil.updateGatewayByField(gateway, gatewayField, newParam);
 			session.saveOrUpdate(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return false;
@@ -106,12 +121,14 @@ public class GatewayDaoImpl implements GatewayDao {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
+			tx.setTimeout(10);
+			tx.begin();
 			session.saveOrUpdate(gateway);
+			tx.commit();
 		} catch (HibernateException e) {
 			tx.rollback();
 			return false;
 		} finally {
-			tx.commit();
 			session.close();
 		}
 		return false;

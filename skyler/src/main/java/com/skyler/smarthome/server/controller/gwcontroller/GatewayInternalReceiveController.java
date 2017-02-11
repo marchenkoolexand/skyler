@@ -1,8 +1,6 @@
 package com.skyler.smarthome.server.controller.gwcontroller;
 
-import com.skyler.smarthome.server.data.DeviceDao;
-import com.skyler.smarthome.server.data.GatewayDao;
-import com.skyler.smarthome.server.data.ModuleDao;
+import com.skyler.smarthome.server.core.CoreSystemHandler;
 import com.skyler.smarthome.server.model.Gateway;
 import com.skyler.smarthome.server.model.Module;
 import com.skyler.smarthome.server.model.gateway.GatewayInfo;
@@ -29,12 +27,9 @@ public class GatewayInternalReceiveController {
 
 	final static Logger logger = Logger.getLogger(GatewayInternalSendController.class);
 
-	@Autowired(required=true)
-	GatewayDao gatewayDAO;
-	@Autowired(required=true)
-	ModuleDao moduleDao;
-	@Autowired(required=true)
-	DeviceDao deviceDao;
+    @Autowired
+	CoreSystemHandler coreSystemHandler;
+
 
 	//Get Main Server Info
 	@RequestMapping(value = "/info/", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -42,6 +37,9 @@ public class GatewayInternalReceiveController {
 	{
 		MainServerInfo mainServerInfo = new MainServerInfo();
         //TODO
+		mainServerInfo.setId(1);
+		mainServerInfo.setProtocolVersionMajor("1212");
+
         return mainServerInfo;
 	}
 
@@ -49,7 +47,7 @@ public class GatewayInternalReceiveController {
 	@RequestMapping(value = "/gateways/{unique_gateway_id}", method = RequestMethod.POST)
 	public void newGateway(@PathVariable int unique_gateway_id,@RequestBody GatewayInfo gatewayInfo) {
 		if(unique_gateway_id > 0) {
-			//TODO
+
 		}
 	}
 
@@ -57,7 +55,7 @@ public class GatewayInternalReceiveController {
 	@RequestMapping(value = "/gateways/{unique_gateway_id}", method = RequestMethod.DELETE)
 	public void deleteGateway(@PathVariable int unique_gateway_id) {
 		if(unique_gateway_id > 0) {
-			boolean result = gatewayDAO.deleteGateway(unique_gateway_id);
+			//TODO
 		}
 	}
 
@@ -66,7 +64,7 @@ public class GatewayInternalReceiveController {
 	public void updateGateway(@PathVariable int unique_gateway_id, @RequestParam String gatewayField,
 			@RequestParam String newParam) {
 		if (unique_gateway_id > 0&& gatewayField != null && newParam != null) {
-			boolean result = gatewayDAO.updateGatewayByField(unique_gateway_id, gatewayField, newParam);
+			//TODO
 		}
 	}
 
@@ -87,13 +85,6 @@ public class GatewayInternalReceiveController {
 	//Register system event happened with some of the Actuators (new added, communication lost, missing, poor communication, etc)
 	@RequestMapping(value = "/gateways/{unique_gateway_id}/actuators/sys-event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody boolean registerActuatorSystemEvent(@PathVariable int unique_gateway_id) {
-		//TODO
-		return true;
-	}
-
-	//Register event happened on Actuator
-	@RequestMapping(value = "/gateways/{unique_gateway_id}/actuators/{actuator_id}/event/", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public @ResponseBody boolean registerActuatorEvent(@PathVariable int unique_gateway_id, @RequestParam int actuator_id) {
 		//TODO
 		return true;
 	}

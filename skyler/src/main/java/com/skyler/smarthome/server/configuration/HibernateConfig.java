@@ -55,6 +55,8 @@ public class HibernateConfig {
 		properties.put("hibernate.c3p0.max_size", environment.getRequiredProperty("hibernate.c3p0.max_size"));
 		properties.put("hibernate.c3p0.timeout", environment.getRequiredProperty("hibernate.c3p0.timeout"));
 		properties.put("hibernate.c3p0.max_statements", environment.getRequiredProperty("hibernate.c3p0.max_statements"));
+		properties.put("hibernate.jdbc.batch_size", environment.getRequiredProperty("hibernate.jdbc.batch_size"));
+		properties.put("hibernate.cache.use_structured_entries", environment.getRequiredProperty("hibernate.cache.use_structured_entries"));
 		return properties;
 	}
 
